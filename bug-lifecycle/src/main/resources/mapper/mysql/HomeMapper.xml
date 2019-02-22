@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.buglifecycle.dao.HomeDao">
+    <select id="getRedevBugCount" resultType="java.lang.Integer" >
+        SELECT
+		  count(b.id)
+        FROM
+            zt_bug b
+        LEFT JOIN zt_product pd ON b.product = pd.id
+        LEFT JOIN zt_project pj ON b.project = pj.id
+        WHERE
+            b. STATUS = "active"
+            <if test="#{systemName}!= null and #{systemName}!= ''">
+                AND pd. NAME = "系统名称"
+            </if>
+            <if test="#{version}!= null and #{version}!= ''">
+                AND pj. NAME = "版本号"
+            </if>
+            AND b.type = "redev";
+    </select>
+
+   <!-- <select id="get24UnsolvedBugCount" resultType="java.lang.Integer" >
+        SELECT
+        count(b.id)
+        FROM
+        zt_bug b
+        LEFT JOIN zt_product pd ON b.product = pd.id
+        LEFT JOIN zt_project pj ON b.project = pj.id
+        WHERE
+        b. STATUS = "active"
+        <if test="#{systemName}!= null and #{systemName}!= ''">
+            AND pd. NAME = "系统名称"
+        </if>
+        <if test="#{version}!= null and #{version}!= ''">
+            AND pj. NAME = "版本号"
+        </if>
+        AND TIMESTAMPDIFF(
+            HOUR,
+            b.openedDate,
+            now()
+            ) &lt; 24;
+    </select>-->
+
+   <!-- <select id="getRedevBugCount" resultType="java.lang.Integer" >
+        SELECT
+        count(b.id)
+        FROM
+        zt_bug b
+        LEFT JOIN zt_product pd ON b.product = pd.id
+        LEFT JOIN zt_project pj ON b.project = pj.id
+        WHERE
+        b. STATUS = "active"
+        <if test="systemName != null and systemName != ''">
+            AND pd. NAME = "系统名称"
+        </if>
+        <if test="version != null and version != ''">
+            AND pj. NAME = "版本号"
+        </if>
+        AND TIMESTAMPDIFF(
+        HOUR,
+        b.openedDate,
+        now()
+        ) &gt; 48;
+    </select>-->
+
+</mapper>
