@@ -1,0 +1,98 @@
+<!--  -->
+<template>
+  <div v-bind:style="pieStyle">
+    <Modal v-model="showDefectDetail" title="缺陷明细列表" :mask-closable="false" width="1300">
+      <DefectDetail ref="defectDetail"></DefectDetail>
+    </Modal>
+  </div>
+</template>
+
+<script>
+import DefectDetail from "./DefectDetail";
+import {pieAjaxRequest} from "../../static/js/PieRequestCommon.js"
+export default {
+  data() {
+    return {
+      pieStyle: {
+        width: "100%",
+        height: "350px"
+      },
+      showDefectDetail:false,
+      defectDetailData:{},
+    };
+  },
+  components:{
+    DefectDetail
+  },
+  methods:{
+      loadPie:function(pieParameter){
+        var pieOptions = {
+        title: {
+          text: "",
+          left: 'left',
+          top: 20,
+          textStyle: {
+            // color: "#ccc"
+          }
+        },
+        series: [
+          {
+            type: "pie",
+            radius: "70%",
+            label: {
+              //饼图图形上的文本标签
+              normal: {
+                show: true,
+              // position: "inner", //标签的位置
+                textStyle: {
+                  fontWeight: 100,
+                  fontSize: 12 //文字的字体大小
+                },
+                // formatter: "{d}%{b}",
+                formatter:function(val){   //让series 中的文字进行换行
+                      return val.percent.toFixed(0)+"%\n"+val.name;
+                    }
+              }
+            },
+            // color: [ "#c23531", "#9c1515","#c71919"],
+            data: [],
+            labelLine: {
+                  normal: {
+                      lineStyle: {
+                          color: 'darkgrey'
+                      },
+                      smooth: 0.2,
+                      length: 10,
+                      length2: 20,
+                  }
+              },
+            itemStyle: {
+                normal: {
+                    // color: '#c23531',
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                }
+            },
+          }
+        ]
+      };
+      pieOptions.title.text = pieParameter.pieName;
+      debugger;
+      pieOptions.series[0].data = pieParameter.data;
+      pieOptions.peiType = pieParameter.peiType;
+      let pie = this.$echarts.init(this.$el);
+      pie.setOption(pieOptions);
+      let _this = this;
+      pie.on("click", function(params) {
+        debugger;
+        var requestObject = {};
+        requestObject.requestUrl = "www.baidu.com";
+        requestObject.requestObject = params;
+        //调用缺陷详细组件方法
+        _this.$refs.defectDetail.loadDefectData(requestObject);
+        _this.showDefectDetail = true;
+      });
+    }
+  },
+};
+</script>
