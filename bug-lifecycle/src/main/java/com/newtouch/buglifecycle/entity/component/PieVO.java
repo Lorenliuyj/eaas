@@ -13,6 +13,10 @@ public class PieVO {
 
     private String key;
 
+    private String minTime;
+
+    private String maxTime;
+
     public int getValue() {
         return value;
     }
@@ -35,5 +39,21 @@ public class PieVO {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getMinTime() {
+        return minTime;
+    }
+
+    public void setMinTime(String minTime) {
+        this.minTime = minTime;
+    }
+
+    public String getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(String maxTime) {
+        this.maxTime = maxTime;
     }
 }
