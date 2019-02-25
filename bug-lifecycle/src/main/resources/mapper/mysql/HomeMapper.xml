@@ -56,7 +56,7 @@
     </select>
 
 
-    <select id="get24UnsolvedBugCount" resultType="java.lang.Integer" >
+    <select id="get24BugCount" resultType="java.lang.Integer" >
         SELECT
         count(b.id)
         FROM
@@ -68,7 +68,7 @@
         ) &lt; 24;
     </select>
 
-    <select id="get48UnsolvedBugCount" resultType="java.lang.Integer" >
+    <select id="get48BugCount" resultType="java.lang.Integer" >
         SELECT
         count(b.id)
         FROM
