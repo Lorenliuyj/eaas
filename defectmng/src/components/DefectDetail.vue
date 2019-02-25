@@ -85,13 +85,11 @@ export default {
         this.$fetch(defectDetailData.requestUrl,defectDetailData.requestObject)
         .then(
             response =>{
-              debugger;
-              _this.data = response;
+              _this.data = response.result;
               _this.loading = false;
               _this.nodatatext="暂无数据";
             },
             function(response) {
-              debugger;
               console.log("查询失败"+response);
               _this.loading = false;
               _this.nodatatext="查询异常";

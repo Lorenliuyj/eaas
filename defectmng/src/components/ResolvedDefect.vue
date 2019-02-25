@@ -39,9 +39,9 @@
                     :key="item.value"
                   >{{item.label}}</Option>
                 </Select>
-                <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportData(1)" />
+                <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportDataFor48unDeal('超48小时未处理缺陷排名')" />
             </p>
-            <Table :columns="columnForUserBug" height="300" stripe :data="tableDataFor48unDeal" size="small" class="table-left"  @on-row-click="showDefectFrom48UnDeal"></Table>
+            <Table :columns="columnForUserBug" ref="tablsFor48unDeal" height="300" stripe :data="tableDataFor48unDeal" size="small" class="table-left"  @on-row-click="showDefectFrom48UnDeal"></Table>
           </Card>
         </div>
         <div class="bottom-right float-left">
@@ -58,7 +58,7 @@
                     :key="item.value"
                   >{{item.label}}</Option>
                 </Select>
-                <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportData(2)" />
+                <Icon type="md-download" size="28" color="grey" class="float-right"  @click="exportDataForRank10('缺陷排名前十')" />
             </p>
             <Table :columns="columnForUserBug" height="300" stripe :data="tableDataForRank10" size="small"  @on-row-click="showDefectFromRank10"></Table>
           </Card>
@@ -77,9 +77,9 @@
                     :key="item.value"
                   >{{item.label}}</Option>
                 </Select>
-                <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportData(3)" />
+                <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportTableForCQOver5('缺陷超5个的cq单明细')" />
             </p>
-            <Table :columns="columnForCQOver5" height="400" stripe :data="tableDataForCQOver5" size="small" @on-row-click="showDefectFromSystem"></Table>
+            <Table :columns="columnForCQOver5" height="400" stripe :data="tableDataForCQOver5" ref="tableForCQOver5" size="small" @on-row-click="showDefectFromSystem"></Table>
           </Card>
         </div>
       </div>
@@ -145,11 +145,11 @@ export default {
         },
         {
           title: "系统",
-          key: "system"
+          key: "projectName"
         },
         {
           title: "bug数",
-          key: "bugs"
+          key: "bugSum"
         }
       ],
       columnForUserBug: [
@@ -180,12 +180,21 @@ export default {
   created(){
     //获取APP页面传入的参数
     this.getAppParam();
+    // 加载所有系统下拉框
+    this.loadSystem();
     // 加载饼图
     this.loadPies();
     // 加载表格
     this.loadTables();
   },
   methods:{
+    loadSystem:function(){
+      let _this = this;
+      //初始系统
+      this.$fetch("home/getBaseData").then(response => {
+      _this.systemList = response.result.systemList;
+      });
+    },
     loadTables:function(){
       //加载表格  超48小时未解决缺陷排名
       this.loadTableFor48UnDeal();
@@ -196,11 +205,12 @@ export default {
     },
     loadTableFor48UnDeal:function(){
       var reqObj = {};
-      reqObj.system = this.sysFrom48UnDeal;
+      reqObj.systemName = this.sysFrom48UnDeal;
       reqObj.version = this.version;
-      this.$fetch("/tableFor48UnDeal",reqObj).then(
+      reqObj.unDeal = false;
+      this.$fetch("/home/tableFor48UnDeal",reqObj).then(
         response =>{
-          this.tableDataFor48unDeal = response;
+          this.tableDataFor48unDeal = response.result;
         },function(){
 
         }
@@ -208,11 +218,12 @@ export default {
     },
     loadTableForRank10:function(){
       var reqObj = {};
-      reqObj.system = this.sysFrom48UnDeal;
+      reqObj.systemName = this.sysFrom48UnDeal;
       reqObj.version = this.version;
-      this.$fetch("/tableForRank10",reqObj).then(
+      reqObj.unDeal = false;
+      this.$fetch("/home/tableForRank10",reqObj).then(
         response =>{
-          this.tableDataForRank10 = response;
+          this.tableDataForRank10 = response.result;
         },function(){
 
         }
@@ -220,25 +231,22 @@ export default {
     },
     loadTableForCQOver5:function(){
       var reqObj = {};
-      reqObj.system = this.sysFrom48UnDeal;
-      reqObj.version = this.version;
-      this.$fetch("/tableDataForCQOver5",reqObj).then(
+      reqObj.system = "受理平台"//TODO this.sysFrom48UnDeal;
+      reqObj.version = ""//TODO this.version;
+      reqObj.unDeal = false;
+      this.$fetch("/home/tableDataForCQOver5",reqObj).then(
         response =>{
-          this.tableDataForCQOver5 = response;
+          this.tableDataForCQOver5 = response.result;
         },function(){
 
         }
       )
     },
     loadPies:function(){
-      //加载饼图缺陷按系统占比
-      this.loadPieForSys();
-      //加载饼图缺陷按时间占比
+      //加载饼图 未解决缺陷按系统占比
+      this.loadPieForCommon();
+      //加载饼图 未解决缺陷按时间占比
       this.loadPieForHours();
-      //加载饼图返工缺陷按系统占比
-      this.loadPieForRework();
-      //加载饼图超过48小时未处理按系统占比
-      this.loadPieForOver48();
     },
     getAppParam(){
       this.version = this.$route.params.version;
@@ -246,32 +254,33 @@ export default {
     // 超48小时未处理缺陷排名 表格穿透弹窗方法
     showDefectFrom48UnDeal:function(data,index){
       var defectDetailData = {};
-      defectDetailData.requestUrl = "/loadDefectFromUserAccount";
+      defectDetailData.requestUrl = "/home/tableFor48UnDealDetail";
       var reqParam = {};
       reqParam.account =  data.account;
-      reqParam.system =  this.sysFrom48UnDeal;
+      reqParam.systemName =  this.sysFrom48UnDeal;
       reqParam.version = this.version;
+      reqParam.undeal = false;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
     // 缺陷排名前十 表格穿透弹窗方法
     showDefectFromRank10:function(data,index){
       var defectDetailData = {};
-      defectDetailData.requestUrl = "/loadDefectFromUserAccount";
+      defectDetailData.requestUrl = "/home/tableForRank10Detail";
       var reqParam = {};
       reqParam.account =  data.account;
-      reqParam.system =  this.sysFromRank10;
+      reqParam.systemName =  this.sysFromRank10;
       reqParam.version = this.version;
+      reqParam.undeal = false;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
     // 缺陷超5个的cq单明细表格穿透弹窗方法
     showDefectFromSystem:function(data,index){
       var defectDetailData = {};
-      defectDetailData.requestUrl = "/loadDefectFromSystemParam";
+      defectDetailData.requestUrl = "/home/tableDataForCQOver5Detail";
        var reqParam = {};
-      reqParam.system =  data.systems;
-      reqParam.version = data.versions;
+      reqParam.id = data.id;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
@@ -280,16 +289,26 @@ export default {
       this.$refs.defectDetailRef.loadDefectData(defectDetailData);
       this.showDefectDetail = true;
     },
-    loadPieForSys:function(){
+    loadPieForCommon:function(){
       let _this = this;
-      this.$fetch("/pieForSys",this.version)
+      var reqObj = {};
+      reqObj.version = this.version;
+      reqObj.undeal = false;
+      this.$fetch("/home/getBugPercent",reqObj)
       .then(
         response =>{
-            var pieParameter = {};
-            pieParameter.pieName = "缺陷按系统占比";
-            pieParameter.data = response;
-            pieParameter.peiType = "1";
-              _this.$refs.pieForSystem.loadPie(pieParameter);
+            var pieForSys = {};
+            pieForSys.pieName = "缺陷按系统占比";
+            pieForSys.data = response.result.pieForSys;
+            var pieForRework = {};
+            pieForRework.pieName = "返工缺陷按系统占比";
+            pieForRework.data = response.result.pieForSys;
+            var pieForOver48 = {};
+            pieForOver48.pieName = "超过48小时未处理缺陷按系统占比";
+            pieForOver48.data = response.result.pieForSys;
+            _this.$refs.pieForSystem.loadPie(pieForSys);
+            _this.$refs.pieForRework.loadPie(pieForRework,"type","redev");
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48");
             },
             function(response) {
               // TODO
@@ -300,54 +319,35 @@ export default {
       let _this = this;
       var reqObj = {};
       reqObj.version = this.version;
-      reqObj.system = this.sysFromPie;
-      this.$fetch("/pieForSys",reqObj)
+      reqObj.systemName = this.sysFromPie;
+      reqObj.undeal = false;
+      this.$fetch("/home/getBugPercentHour",reqObj)
       .then(
         response =>{
             var pieParameter = {};
             pieParameter.pieName = "缺陷按时间占比";
-            pieParameter.data = response;
-              _this.$refs.pieForHours.loadPie(pieParameter);
-            },
-            function(response) {
-              // TODO
-            }
-            
-      )
-    },
-    loadPieForRework:function(){
-      let _this = this;
-      var reqObj = {};
-      reqObj.version = this.version;
-      this.$fetch("/pieForSys",reqObj)
-      .then(
-        response =>{
-            var pieParameter = {};
-            pieParameter.pieName = "返工缺陷按系统占比";
-            pieParameter.data = response;
-              _this.$refs.pieForRework.loadPie(pieParameter);
+            pieParameter.data = response.result;
+              _this.$refs.pieForHours.loadPie(pieParameter,"","","");
             },
             function(response) {
               // TODO
             }
       )
     },
-    loadPieForOver48:function(){
-      let _this = this;
-      var reqObj = {};
-      reqObj.version = this.version;
-      this.$fetch("/pieForSys",reqObj)
-      .then(
-        response =>{
-            var pieParameter = {};
-            pieParameter.pieName = "超过48小时未处理按系统占比";
-            pieParameter.data = response;
-              _this.$refs.pieForOver48.loadPie(pieParameter);
-            },
-            function(response) {
-              // TODO
-            }
-      )
+    exportDataFor48unDeal:function(filename){
+      this.$refs.tablsFor48unDeal.exportCsv({
+          filename: filename
+      });
+    },
+    exportDataForRank10:function(filename){
+      this.$refs.tableForRank10.exportCsv({
+          filename: filename
+      });
+    },
+    exportTableForCQOver5:function(filename){
+      this.$refs.tableForCQOver5.exportCsv({
+          filename: filename
+      });
     },
   }
 };

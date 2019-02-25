@@ -5,31 +5,31 @@
       <span class="item-title">返工缺陷数阀值：</span>
       <div>
         橙色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter0.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoardRedev.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         红色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter0.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoardRedev.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         最大值:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter0.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoardRedev.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </div>
       <br>
       <span class="item-title">超48小时未解决缺陷数阀值：</span>
       <div>
         橙色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter1.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard48Hour.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         红色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter1.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard48Hour.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         最大值:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter1.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard48Hour.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </div>
       <br>
       <span class="item-title">24小时内未解决缺陷数阀值：</span>
       <div>
         橙色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter2.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard24Hour.action"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         红色预警:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter2.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard24Hour.warnning"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         最大值:
-        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashParameter2.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard24Hour.max"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       </div>
     </Form>
   </div>
@@ -38,52 +38,36 @@
 export default {
   data() {
     return {
-        dashParameter0:{
-            action:7,
-            warnning:15,
-            max:30,
-        },
-        dashParameter1:{
-            action:6,
-            warnning:15,
-            max:30,
-        },
-        dashParameter2:{
-            action:6,
-            warnning:15,
-            max:30,
-        }
+      dashBoardRedev:{},
+      dashBoard48Hour:{},
+      dashBoard24Hour:{}
     };
   },
-  created(){
-
-    // this.$fetch("").then(resp=>{
-
-    // }).catch(error=>{
-
-    // });
-  },
-  props: {},
   methods: {
     getThresholdSettings: function() {
       return {
-        dashParameter0:{
-            action: this.dashParameter0.action,
-            warnning: this.dashParameter0.warnning,
-            max: this.dashParameter0.max,
+        dashBoardRedev:{
+            action: this.dashBoardRedev.action,
+            warnning: this.dashBoardRedev.warnning,
+            max: this.dashBoardRedev.max,
         },
-        dashParameter1:{
-            action: this.dashParameter1.action,
-            warnning: this.dashParameter1.warnning,
-            max: this.dashParameter1.max,
+        dashBoard48Hour:{
+            action: this.dashBoard48Hour.action,
+            warnning: this.dashBoard48Hour.warnning,
+            max: this.dashBoard48Hour.max,
         },
-        dashParameter2:{
-            action: this.dashParameter2.action,
-            warnning: this.dashParameter2.warnning,
-            max: this.dashParameter2.max,
+        dashBoard24Hour:{
+            action: this.dashBoard24Hour.action,
+            warnning: this.dashBoard24Hour.warnning,
+            max: this.dashBoard24Hour.max,
       }
     }
-    }
+    },
+    initDashBoardSetting: function(data) {
+this.dashBoardRedev = data.dashBoardRedev;
+this.dashBoard48Hour = data.dashBoard48Hour;
+this.dashBoard24Hour = data.dashBoard24Hour;
+}
   }
 };
 </script>

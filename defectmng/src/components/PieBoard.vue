@@ -25,7 +25,7 @@ export default {
     DefectDetail
   },
   methods:{
-      loadPie:function(pieParameter){
+      loadPie:function(pieParameter,proName,proValue,status){
         var pieOptions = {
         title: {
           text: "",
@@ -77,17 +77,21 @@ export default {
         ]
       };
       pieOptions.title.text = pieParameter.pieName;
-      debugger;
       pieOptions.series[0].data = pieParameter.data;
-      pieOptions.peiType = pieParameter.peiType;
       let pie = this.$echarts.init(this.$el);
+      pie.proName = proName;
+      pie.proValue = proValue;
+      pie.status = status;
       pie.setOption(pieOptions);
       let _this = this;
       pie.on("click", function(params) {
         debugger;
         var requestObject = {};
-        requestObject.requestUrl = "www.baidu.com";
-        requestObject.requestObject = params;
+        requestObject.requestUrl = "/home/getDetailDataByPie";
+        var obj = params.data;
+        obj[this.proName] = this.proValue;
+        obj.status = this.status;
+        requestObject.requestObject = obj;
         //调用缺陷详细组件方法
         _this.$refs.defectDetail.loadDefectData(requestObject);
         _this.showDefectDetail = true;
