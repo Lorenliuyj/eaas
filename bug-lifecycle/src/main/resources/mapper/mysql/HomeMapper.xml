@@ -3,23 +3,24 @@
 <mapper namespace="com.newtouch.buglifecycle.dao.HomeDao">
     <select id="getRedevBugCount" resultType="java.lang.Integer" >
         SELECT
-		  count(b.id)
+        count(b.id)
         FROM
-            zt_bug b
+        zt_bug b
         LEFT JOIN zt_product pd ON b.product = pd.id
         LEFT JOIN zt_project pj ON b.project = pj.id
         WHERE
-            b. STATUS = "active"
-            <if test="#{systemName}!= null and #{systemName}!= ''">
-                AND pd. NAME = "系统名称"
-            </if>
-            <if test="#{version}!= null and #{version}!= ''">
-                AND pj. NAME = "版本号"
-            </if>
-            AND b.type = "redev";
+        b. STATUS = "active"
+        <if test="systemName!= null and systemName != ''">
+            AND pd. NAME = #{systemName}
+        </if>
+        <if test="version!= null and version != ''">
+            AND pj. NAME = #{version}
+        </if>
+        AND b.type = "redev";
     </select>
 
-   <!-- <select id="get24UnsolvedBugCount" resultType="java.lang.Integer" >
+
+    <select id="get24UnsolvedBugCount" resultType="java.lang.Integer" >
         SELECT
         count(b.id)
         FROM
@@ -28,20 +29,20 @@
         LEFT JOIN zt_project pj ON b.project = pj.id
         WHERE
         b. STATUS = "active"
-        <if test="#{systemName}!= null and #{systemName}!= ''">
-            AND pd. NAME = "系统名称"
+        <if test="systemName != null and systemName!= ''">
+            AND pd. NAME = #{systemName}
         </if>
-        <if test="#{version}!= null and #{version}!= ''">
-            AND pj. NAME = "版本号"
+        <if test="version!= null and version!= ''">
+            AND pj. NAME = #{version}
         </if>
         AND TIMESTAMPDIFF(
             HOUR,
             b.openedDate,
             now()
             ) &lt; 24;
-    </select>-->
+    </select>
 
-   <!-- <select id="getRedevBugCount" resultType="java.lang.Integer" >
+    <select id="get48UnsolvedBugCount" resultType="java.lang.Integer" >
         SELECT
         count(b.id)
         FROM
@@ -50,17 +51,17 @@
         LEFT JOIN zt_project pj ON b.project = pj.id
         WHERE
         b. STATUS = "active"
-        <if test="systemName != null and systemName != ''">
-            AND pd. NAME = "系统名称"
+        <if test="systemName != null and systemName!= ''">
+            AND pd. NAME = #{systemName}
         </if>
-        <if test="version != null and version != ''">
-            AND pj. NAME = "版本号"
+        <if test="version!= null and version!= ''">
+            AND pj. NAME = #{version}
         </if>
         AND TIMESTAMPDIFF(
         HOUR,
         b.openedDate,
         now()
-        ) &gt; 48;
-    </select>-->
+        ) &gt; 24;
+    </select>
 
 </mapper>
