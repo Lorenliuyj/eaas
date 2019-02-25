@@ -1,52 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newtouch.buglifecycle.dao.BugsDao">
-    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-       select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
-            select
-                 b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
-            from zt_bug a
-            left join zt_product b on a.product = b.id
-            left join zt_project c on a.project = c.id
-            left join zt_user d on a.resolvedBy = d.account
-            where
-                a.status = 'active'
-            and
-                TIMESTAMPDIFF(hour,a.openedDate,now())&gt;48
-            group by b.name,c.name,d.account
-        ) t
-        <where>
-            <if test="systemName !=null">
-                t.project_name = #{systemName}
-            </if>
-            <if test="version!=null and version!=''">
-                and  t.version_name= #{version}
-            </if>
-        </where>
-        order by bugs_num desc limit 10
-    </select>
 
-    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-        select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
-        select
-        b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
-        from zt_bug a
+
+    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+      select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
         where
-           a.status = 'active'
-        group by b.name,c.name,d.account
-        ) t
-        <where>
-            <if test="systemName !=null">
-                t.project_name = #{systemName}
-            </if>
-            <if test="version!=null and version!=''">
-                and  t.version_name= #{version}
-            </if>
-        </where>
-        order by bugs_num desc limit 10
+         1=1
+        <choose>
+        <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+            and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+            and a.status = 'active'
+            and a.type='codeerror'
+        </when>
+        <otherwise>
+            and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+        </otherwise>
+        </choose>
+        <if test="systemName !=null">
+           and b.name = #{systemName}
+        </if>
+        <choose>
+            <when test="version!=null and version!=''">
+                AND
+                c.name = #{version}
+            </when>
+            <otherwise>
+                AND
+                c.name like '%'||(select right(YEAR (CURDATE()),2))
+            </otherwise>
+        </choose>
+        group by d.account
+        order by count(1) desc limit 10;
+    </select>
+
+    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+        select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        left join zt_product b on a.product = b.id
+        left join zt_project c on a.project = c.id
+        left join zt_user d on a.resolvedBy = d.account
+        where
+        1=1
+        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+            and a.status = 'active'
+        </if>
+        <if test="systemName !=null">
+            and b.name = #{systemName}
+        </if>
+        <choose>
+            <when test="version!=null and version!=''">
+                AND
+                c.name = #{version}
+            </when>
+            <otherwise>
+                AND
+                c.name like '%'||(select right(YEAR (CURDATE()),2))
+            </otherwise>
+        </choose>
+        group by d.account
+        order by count(1) desc limit 10;
     </select>
 
 

@@ -141,10 +141,8 @@ public class HomeController {
     @GetMapping(value = "/tableFor48UnDeal")
     public ResponseVO get48UnsolvedBug(@RequestParam(required=false)String systemName,
                                        @RequestParam(required=false)String version,
-                                       @RequestParam(required=false)String unDeal){
-        SystemDTO systemVO = new SystemDTO();
-        systemVO.setSystemName(systemName);
-        systemVO.setVersion(version);
+                                       @RequestParam(required=false)Boolean unDeal){
+        SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
         List<BugsInfoVO> list = bugsService.tableFor48UnDeal(systemVO);
         return ResponseUtil.successResponse(list);
     }
