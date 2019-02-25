@@ -16,6 +16,15 @@ public class SystemDTO {
     /**故事id**/
     private String storyId;
 
+    public SystemDTO() {
+    }
+
+    public SystemDTO(String systemName, String version, Boolean unDeal) {
+        this.systemName = systemName;
+        this.version = version;
+        this.unDeal = unDeal;
+    }
+
     public String getStoryId() {
         return storyId;
     }

@@ -36,52 +36,99 @@ public class HomeController {
     @Resource
     HomeService homeService;
 
+    /**
+     * 获取页面基础参数
+     * @return
+     */
     @GetMapping("getBaseData")
     public ResponseVO getBaseData(){
         return ResponseUtil.successResponse(homeService.getBaseData());
     }
 
+    /**
+     * 获取home页面仪表盘数据
+     * @param systemName
+     * @param version
+     * @return
+     */
     @GetMapping("dashBoardData")
-    public ResponseVO getdashBoardData(@RequestParam(required=false)String system,
+    public ResponseVO getdashBoardData(@RequestParam(required=false)String systemName,
                                        @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getHomeDashBoardData(system, version));
+        return ResponseUtil.successResponse(homeService.getHomeDashBoardData(systemName, version));
     }
 
+    /**
+     * 设置home页面阀值
+     * @param json 阀值json对象
+     * @return
+     */
     @GetMapping("setDashBoardThreshold")
     public ResponseVO setDashBoardThreshold(@RequestParam String json){
         homeService.setDashBoardThreshold(json);
         return ResponseUtil.successResponse(json);
     }
 
+    /**
+     * 获取未解决饼图数据
+     * @param systemName
+     * @param version
+     * @return
+     */
     @GetMapping("getUnsolve")
-    public ResponseVO getUnsolve(@RequestParam(required=false)String system,
+    public ResponseVO getUnsolve(@RequestParam(required=false)String systemName,
                                  @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getUnsolvedPie(system,version));
+        return ResponseUtil.successResponse(homeService.getUnsolvedPie(systemName,version));
     }
 
+    /**
+     * 获取未解决数据按小时划分百分比
+     * @param systemName
+     * @param version
+     * @return
+     */
     @GetMapping("getUnsolveByHour")
-    public ResponseVO getUnsolveByHour(@RequestParam(required=false)String system,
+    public ResponseVO getUnsolveByHour(@RequestParam(required=false)String systemName,
                                        @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getUnsolvedPieByHour(system,version));
+        return ResponseUtil.successResponse(homeService.getUnsolvedPieByHour(systemName,version));
     }
 
+    /**
+     * 获取缺陷占比
+     * @param systemName
+     * @param version
+     * @return
+     */
     @GetMapping("getBugPercent")
-    public ResponseVO getBugPercent(@RequestParam(required=false)String system,
+    public ResponseVO getBugPercent(@RequestParam(required=false)String systemName,
                                     @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getBugPercent(system,version));
+        return ResponseUtil.successResponse(homeService.getBugPercent(systemName,version));
     }
 
-    @ResponseBody
+    /**
+     * 获取按时间缺陷占比
+     * @param systemName
+     * @param version
+     * @return
+     */
     @GetMapping("getBugPercentHour")
-    public ResponseVO getBugPercentHour(@RequestParam(required=false)String system,
+    public ResponseVO getBugPercentHour(@RequestParam(required=false)String systemName,
                                         @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getBugPercentByHour(system,version));
+        return ResponseUtil.successResponse(homeService.getBugPercentByHour(systemName,version));
     }
 
+    /**
+     * 缺陷详细信息列表
+     * @param systemName
+     * @param version
+     * @param unDeal
+     * @return
+     */
     @GetMapping("getDetailDataByPie")
-    public ResponseVO getDetailDataByPie(@RequestParam(required=false)String system,
-                                         @RequestParam(required=false)String version){
-        return ResponseUtil.successResponse(homeService.getUnsolvedPieByHour(system,version));
+    public ResponseVO getDetailDataByPie(@RequestParam(required=false)String systemName,
+                                         @RequestParam(required=false)String version,
+                                         @RequestParam(required=false)boolean unDeal){
+        SystemDTO systemDTO = new SystemDTO(systemName,version,unDeal);
+        return ResponseUtil.successResponse(homeService.getDetailDataByPie(systemDTO));
     }
 
     @GetMapping(value = "/tableFor48UnDeal")

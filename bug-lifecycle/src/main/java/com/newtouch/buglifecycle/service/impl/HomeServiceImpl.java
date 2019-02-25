@@ -2,10 +2,13 @@ package com.newtouch.buglifecycle.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.newtouch.buglifecycle.dao.HomeDao;
+import com.newtouch.buglifecycle.dao.UnsolvedBugDetialDao;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.component.PieVO;
 import com.newtouch.buglifecycle.entity.home.HomeBaseDataVO;
 import com.newtouch.buglifecycle.entity.home.HomeDashBoardVO;
 import com.newtouch.buglifecycle.entity.home.HomePieVO;
+import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.HomeService;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,9 @@ public class HomeServiceImpl implements HomeService {
 
     @Resource
     HomeDao homeDao;
+
+    @Resource
+    UnsolvedBugDetialDao unsolvedBugDetialDao;
 
     @Override
     public HomeBaseDataVO getBaseData() {
@@ -91,6 +97,11 @@ public class HomeServiceImpl implements HomeService {
     @Override
     public List<PieVO> getBugPercentByHour(String system, String version) {
         return homeDao.getBugByHour(system, version,null);
+    }
+
+    @Override
+    public List<UnsolvedBugDetialVO> getDetailDataByPie(SystemDTO systemDTO) {
+        return unsolvedBugDetialDao.findBugDetail(systemDTO);
     }
 
 
