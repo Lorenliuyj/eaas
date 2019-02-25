@@ -131,10 +131,17 @@ public class HomeController {
         return ResponseUtil.successResponse(homeService.getDetailDataByPie(systemDTO));
     }
 
+    /**
+     * 48小時未解决的bug
+     * @param systemName
+     * @param version
+     * @param unDeal
+     * @return
+     */
     @GetMapping(value = "/tableFor48UnDeal")
     public ResponseVO get48UnsolvedBug(@RequestParam(required=false)String systemName,
                                        @RequestParam(required=false)String version,
-                                       @RequestParam(required=false)String isUnDeal){
+                                       @RequestParam(required=false)String unDeal){
         SystemDTO systemVO = new SystemDTO();
         systemVO.setSystemName(systemName);
         systemVO.setVersion(version);
@@ -142,31 +149,48 @@ public class HomeController {
         return ResponseUtil.successResponse(list);
     }
 
+    /**
+     * 未解决缺陷排名前十
+     * @param systemName
+     * @param version
+     * @param unDeal
+     * @return
+     */
     @GetMapping(value = "/tableForRank10")
     public ResponseVO tableForRank10(@RequestParam(required=false)String systemName,
                                      @RequestParam(required=false)String version,
-                                     @RequestParam(required=false)String isUnDeal){
-        SystemDTO systemVO = new SystemDTO();
-        systemVO.setSystemName(systemName);
-        systemVO.setVersion(version);
+                                     @RequestParam(required=false)Boolean unDeal){
+        SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
         List<BugsInfoVO> list = bugsService.tableForRank10(systemVO);
         return ResponseUtil.successResponse(list);
     }
 
+    /**
+     * 48小時未解决的bug详情
+     * @param systemName
+     * @param version
+     * @param unDeal
+     * @param account
+     * @return
+     */
     @GetMapping(value = "/tableFor48UnDealDetail")
     public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemName,
                                              @RequestParam(required=false)String version,
                                              @RequestParam(required=false)Boolean unDeal,
                                              @RequestParam(required=false)String account){
-        SystemDTO systemVO = new SystemDTO();
-        systemVO.setSystemName(systemName);
-        systemVO.setVersion(version);
+        SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
         systemVO.setAccount(account);
-        systemVO.setUnDeal(unDeal);
         List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemVO);
         return ResponseUtil.successResponse(list);
     }
 
+    /**
+     * 未解决缺陷排名前十详情
+     * @param systemName
+     * @param version
+     * @param account
+     * @return
+     */
     @GetMapping(value = "/tableForRank10Detail")
     public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemName,
                                              @RequestParam(required=false)String version,
@@ -178,15 +202,20 @@ public class HomeController {
         List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemVO);
         return ResponseUtil.successResponse(list);
     }
+
+    /**
+     * 未解决返工缺陷列表 unDeal = true, 缺陷超5个的cq单明细 unDeal = false;
+     * @param systemName
+     * @param version
+     * @param unDeal
+     * @return
+     */
     @RequestMapping("/tableDataForCQOver5")
     public ResponseVO tableDataForCQOver5(@RequestParam(required=false)String systemName,
                               @RequestParam(required=false)String version,
                               @RequestParam(required=false)boolean unDeal) {
         if(unDeal) {
-            SystemDTO systemVO = new SystemDTO();
-            systemVO.setSystemName(systemName);
-            systemVO.setVersion(version);
-            systemVO.setUnDeal(unDeal);
+            SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
             List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemVO);
             return ResponseUtil.successResponse(result);
         }else {
@@ -195,6 +224,11 @@ public class HomeController {
         }
     }
 
+    /**
+     * 未解决返工缺陷详情
+     * @param id
+     * @return
+     */
     @RequestMapping("/tableDataForCQOver5Detail")
     public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id) {
         SystemDTO systemVO = new SystemDTO();
