@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.newtouch.buglifecycle.dao.BugsDao">
+    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+       select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
+            select
+                 b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
+            from zt_bug a
+            left join zt_product b on a.product = b.id
+            left join zt_project c on a.project = c.id
+            left join zt_user d on a.resolvedBy = d.account
+            where
+                a.status = 'active'
+            and
+                TIMESTAMPDIFF(hour,a.openedDate,now())&gt;48
+            group by b.name,c.name,d.account
+        ) t
+        <where>
+            <if test="systemName !=null">
+                t.project_name = #{systemName}
+            </if>
+            <if test="version!=null and version!=''">
+                and  t.version_name= #{version}
+            </if>
+        </where>
+        order by bugs_num desc limit 10
+    </select>
+
+    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+        select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
+        select
+        b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
+        from zt_bug a
+        left join zt_product b on a.product = b.id
+        left join zt_project c on a.project = c.id
+        left join zt_user d on a.resolvedBy = d.account
+        where
+           a.status = 'active'
+        group by b.name,c.name,d.account
+        ) t
+        <where>
+            <if test="systemName !=null">
+                t.project_name = #{systemName}
+            </if>
+            <if test="version!=null and version!=''">
+                and  t.version_name= #{version}
+            </if>
+        </where>
+        order by bugs_num desc limit 10
+    </select>
+
+
+    <select id="tableForUnDealDetail" resultType="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
+        SELECT
+        a.id as id,
+        b.name as projectName,
+        TIMESTAMPDIFF(hour,a.openedDate,now()) as putHours,
+        a.type as type,
+        a.title as title,
+        d.realname as openedBy,
+        e.realname as assignedTo,
+        f.realname as resolvedBy,
+        a.resolution as resolution
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        AND
+        a.status = 'active'
+        AND
+        a.type = 'redev'
+        <choose>
+            <when test="version!=null and version!=''">
+                AND
+                c.name = #{version}
+            </when>
+            <otherwise>
+                AND
+                c.name like '%'||(select right(YEAR (CURDATE()),2))
+            </otherwise>
+        </choose>
+        <if test="systemName!=null and systemName!=''">
+            AND  b.name = #{systemName}
+        </if>
+        <if test="unDeal!=null and unDeal!=''">
+            AND TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+        </if>
+        <if test="account!=null and account!=''">
+            AND d.account = #{account}
+        </if>
+        ORDER BY
+        id
+        DESC
+    </select>
+</mapper>
