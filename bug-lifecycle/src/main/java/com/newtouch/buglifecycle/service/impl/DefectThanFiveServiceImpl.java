@@ -1,7 +1,7 @@
 package com.newtouch.buglifecycle.service.impl;
 
 import com.newtouch.buglifecycle.dao.DefectThanFiveDao;
-import com.newtouch.buglifecycle.entity.DefectThanFiveVO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.service.DefectThanFiveService;
 import org.springframework.stereotype.Service;
 

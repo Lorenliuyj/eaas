@@ -1,13 +1,12 @@
 package com.newtouch.buglifecycle.dao;
 
-import com.newtouch.buglifecycle.entity.SystemVO;
-import com.newtouch.buglifecycle.entity.UnsolvedBugDetialVO;
-import org.apache.ibatis.annotations.Param;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
+import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 
 import java.util.List;
 
 public interface UnsolvedBugDetialDao {
 
-    List<UnsolvedBugDetialVO> findBugDetail(SystemVO systemVO);
+    List<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO);
 
 }

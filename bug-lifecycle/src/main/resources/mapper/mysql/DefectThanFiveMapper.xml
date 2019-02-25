@@ -3,7 +3,7 @@
 <mapper namespace="com.newtouch.buglifecycle.dao.DefectThanFiveDao">
 
     <resultMap id="BaseResultMap"
-               type="com.newtouch.buglifecycle.entity.DefectThanFiveVO">
+               type="com.newtouch.buglifecycle.entity.home.DefectThanFiveVO">
         <result column="ID" property="id" jdbcType="VARCHAR" />
         <result column="PROJECTNAME" property="projectName" jdbcType="VARCHAR" />
         <result column="TITLE" property="title" jdbcType="VARCHAR" />

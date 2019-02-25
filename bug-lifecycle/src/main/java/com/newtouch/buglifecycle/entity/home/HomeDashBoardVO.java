@@ -1,6 +1,6 @@
 package com.newtouch.buglifecycle.entity.home;
 
-import com.newtouch.buglifecycle.entity.DashBoardVO;
+import com.newtouch.buglifecycle.entity.component.DashBoardVO;
 
 /**
  * 主页仪表盘VO

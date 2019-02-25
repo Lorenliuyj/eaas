@@ -1,8 +1,8 @@
 package com.newtouch.buglifecycle.service.impl;
 
 import com.newtouch.buglifecycle.dao.UnsolvedBugDetialDao;
-import com.newtouch.buglifecycle.entity.SystemVO;
-import com.newtouch.buglifecycle.entity.UnsolvedBugDetialVO;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
+import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.UnsolvedBugDetialService;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +15,12 @@ public class UnsolvedBugDetialServiceImpl implements UnsolvedBugDetialService {
     UnsolvedBugDetialDao unsolvedBugDetialDao;
 
     @Override
-    public List<UnsolvedBugDetialVO> findAll(SystemVO systemVO) {
+    public List<UnsolvedBugDetialVO> findAll(SystemDTO systemVO) {
         return unsolvedBugDetialDao.findBugDetail(systemVO);
     }
 
     @Override
-    public List<UnsolvedBugDetialVO> findBugDetail(SystemVO systemVO) {
+    public List<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO) {
         return unsolvedBugDetialDao.findBugDetail(systemVO);
     }
 

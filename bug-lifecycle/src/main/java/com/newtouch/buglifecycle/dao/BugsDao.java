@@ -1,8 +1,8 @@
 package com.newtouch.buglifecycle.dao;
 
-import com.newtouch.buglifecycle.entity.BugsInfoVO;
-import com.newtouch.buglifecycle.entity.SystemVO;
-import com.newtouch.buglifecycle.entity.UnsolvedBugDetialVO;
+import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
+import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 
 import java.util.List;
 
@@ -18,16 +18,16 @@ public interface BugsDao {
      * @param systemVO
      * @return
      */
-    List<BugsInfoVO> tableFor48UnDeal(SystemVO systemVO);
+    List<BugsInfoVO> tableFor48UnDeal(SystemDTO systemVO);
 
 
-    List<UnsolvedBugDetialVO> tableForUnDealDetail(SystemVO systemVO);
+    List<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO);
 
     /**
      * bug数排名前十的
      * @param systemVO
      * @return
      */
-    List<BugsInfoVO> tableForRank10(SystemVO systemVO);
+    List<BugsInfoVO> tableForRank10(SystemDTO systemVO);
 
 }

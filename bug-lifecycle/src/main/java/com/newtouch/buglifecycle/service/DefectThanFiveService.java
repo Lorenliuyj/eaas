@@ -1,6 +1,6 @@
 package com.newtouch.buglifecycle.service;
 
-import com.newtouch.buglifecycle.entity.DefectThanFiveVO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 
 import java.util.List;
 

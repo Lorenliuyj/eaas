@@ -1,6 +1,6 @@
 package com.newtouch.buglifecycle.dao;
 
-import com.newtouch.buglifecycle.entity.DefectThanFiveVO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

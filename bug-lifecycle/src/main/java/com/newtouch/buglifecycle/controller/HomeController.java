@@ -1,18 +1,18 @@
 package com.newtouch.buglifecycle.controller;
 
-import com.newtouch.buglifecycle.entity.*;
-import com.newtouch.buglifecycle.entity.home.HomeDashBoardVO;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
+import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
+import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
 import com.newtouch.buglifecycle.service.DefectThanFiveService;
 import com.newtouch.buglifecycle.service.HomeService;
 import com.newtouch.buglifecycle.service.UnsolvedBugDetialService;
 import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.ResponseUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,62 +24,71 @@ import java.util.List;
 @RequestMapping("home")
 public class HomeController {
 
-    @Autowired
+    @Resource
     BugsService bugsService;
 
-    @Autowired
+    @Resource
     UnsolvedBugDetialService unsolvedBugDetialService;
 
-    @Autowired
+    @Resource
     DefectThanFiveService defectThanFiveService;
 
-    @RequestMapping("dashBoardData")
-    public ResponseVO getdashBoardData(@RequestParam(required=false)String systemName,
-                                       @RequestParam(required=false)String version){
-        System.out.print(systemName);
-        System.out.print(version);
-        HomeDashBoardVO homeDashBoardVO = new HomeDashBoardVO();
+    @Resource
+    HomeService homeService;
 
-        DashBoardVO dashBoardVO0 = new DashBoardVO();
-        dashBoardVO0.setAction(6);
-        dashBoardVO0.setWarnning(15);
-        dashBoardVO0.setMax(30);
-        dashBoardVO0.setCurrentValue(17);
-        DashBoardVO dashBoardVO1 = new DashBoardVO();
-        dashBoardVO1.setAction(6);
-        dashBoardVO1.setWarnning(15);
-        dashBoardVO1.setMax(30);
-        dashBoardVO1.setCurrentValue(17);
-        DashBoardVO dashBoardVO2 = new DashBoardVO();
-        dashBoardVO2.setAction(6);
-        dashBoardVO2.setWarnning(15);
-        dashBoardVO2.setMax(30);
-        dashBoardVO2.setCurrentValue(17);
-        homeDashBoardVO.setDashBoardRedev(dashBoardVO0);
-        homeDashBoardVO.setDashBoard24Hour(dashBoardVO1);
-        homeDashBoardVO.setDashBoard48Hour(dashBoardVO2);
-        return ResponseUtil.successResponse(homeDashBoardVO);
+    @GetMapping("getBaseData")
+    public ResponseVO getBaseData(){
+        return ResponseUtil.successResponse(homeService.getBaseData());
     }
-    @RequestMapping("versions")
-    public ResponseVO getVersions(){
-        List<String> list =  new ArrayList<>();
-        list.add("20181225");
-        list.add("20181223");
-        return  ResponseUtil.successResponse(list);
+
+    @GetMapping("dashBoardData")
+    public ResponseVO getdashBoardData(@RequestParam(required=false)String system,
+                                       @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getHomeDashBoardData(system, version));
     }
-    @RequestMapping("systems")
-    public ResponseVO getSystem(){
-        List<String> list =  new ArrayList<>();
-        list.add("受理平台1");
-        list.add("账管系统1");
-        return ResponseUtil.successResponse(list);
+
+    @GetMapping("setDashBoardThreshold")
+    public ResponseVO setDashBoardThreshold(@RequestParam String json){
+        homeService.setDashBoardThreshold(json);
+        return ResponseUtil.successResponse(json);
+    }
+
+    @GetMapping("getUnsolve")
+    public ResponseVO getUnsolve(@RequestParam(required=false)String system,
+                                 @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getUnsolvedPie(system,version));
+    }
+
+    @GetMapping("getUnsolveByHour")
+    public ResponseVO getUnsolveByHour(@RequestParam(required=false)String system,
+                                       @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getUnsolvedPieByHour(system,version));
+    }
+
+    @GetMapping("getBugPercent")
+    public ResponseVO getBugPercent(@RequestParam(required=false)String system,
+                                    @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getBugPercent(system,version));
+    }
+
+    @ResponseBody
+    @GetMapping("getBugPercentHour")
+    public ResponseVO getBugPercentHour(@RequestParam(required=false)String system,
+                                        @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getBugPercentByHour(system,version));
+    }
+
+    @GetMapping("getDetailDataByPie")
+    public ResponseVO getDetailDataByPie(@RequestParam(required=false)String system,
+                                         @RequestParam(required=false)String version){
+        return ResponseUtil.successResponse(homeService.getUnsolvedPieByHour(system,version));
     }
 
     @GetMapping(value = "/tableFor48UnDeal")
     public ResponseVO get48UnsolvedBug(@RequestParam(required=false)String systemName,
                                        @RequestParam(required=false)String version,
                                        @RequestParam(required=false)String isUnDeal){
-        SystemVO systemVO = new SystemVO();
+        SystemDTO systemVO = new SystemDTO();
         systemVO.setSystemName(systemName);
         systemVO.setVersion(version);
         List<BugsInfoVO> list = bugsService.tableFor48UnDeal(systemVO);
@@ -90,7 +99,7 @@ public class HomeController {
     public ResponseVO tableForRank10(@RequestParam(required=false)String systemName,
                                      @RequestParam(required=false)String version,
                                      @RequestParam(required=false)String isUnDeal){
-        SystemVO systemVO = new SystemVO();
+        SystemDTO systemVO = new SystemDTO();
         systemVO.setSystemName(systemName);
         systemVO.setVersion(version);
         List<BugsInfoVO> list = bugsService.tableForRank10(systemVO);
@@ -102,7 +111,7 @@ public class HomeController {
                                              @RequestParam(required=false)String version,
                                              @RequestParam(required=false)Boolean unDeal,
                                              @RequestParam(required=false)String account){
-        SystemVO systemVO = new SystemVO();
+        SystemDTO systemVO = new SystemDTO();
         systemVO.setSystemName(systemName);
         systemVO.setVersion(version);
         systemVO.setAccount(account);
@@ -115,7 +124,7 @@ public class HomeController {
     public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemName,
                                              @RequestParam(required=false)String version,
                                              @RequestParam(required=false)String account){
-        SystemVO systemVO = new SystemVO();
+        SystemDTO systemVO = new SystemDTO();
         systemVO.setSystemName(systemName);
         systemVO.setVersion(version);
         systemVO.setAccount(account);
@@ -127,7 +136,7 @@ public class HomeController {
                               @RequestParam(required=false)String version,
                               @RequestParam(required=false)boolean unDeal) {
         if(unDeal) {
-            SystemVO systemVO = new SystemVO();
+            SystemDTO systemVO = new SystemDTO();
             systemVO.setSystemName(systemName);
             systemVO.setVersion(version);
             systemVO.setUnDeal(unDeal);
@@ -141,7 +150,7 @@ public class HomeController {
 
     @RequestMapping("/tableDataForCQOver5Detail")
     public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id) {
-        SystemVO systemVO = new SystemVO();
+        SystemDTO systemVO = new SystemDTO();
         systemVO.setStoryId(id);
         List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findBugDetail(systemVO);
         return ResponseUtil.successResponse(result);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newtouch.buglifecycle.dao.BugsDao">
-    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.BugsInfoVO" >
+    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
        select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
             select
                  b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
@@ -24,7 +24,7 @@
         order by bugs_num desc limit 10
     </select>
 
-    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.BugsInfoVO" >
+    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
         select project_name AS `system` ,version_name as version,user_name as userName ,account,bugs_num as bugsNum from (
         select
         b.name as project_name,c.name as version_name,d.realname as user_name,d.account, count(1) as bugs_num
@@ -46,7 +46,7 @@
     </select>
 
 
-    <select id="tableForUnDealDetail" resultType="com.newtouch.buglifecycle.entity.UnsolvedBugDetialVO">
+    <select id="tableForUnDealDetail" resultType="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
         SELECT
         a.id as id,
         b.name as projectName,

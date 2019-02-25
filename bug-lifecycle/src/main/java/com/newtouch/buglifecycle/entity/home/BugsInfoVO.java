@@ -1,4 +1,4 @@
-package com.newtouch.buglifecycle.entity;
+package com.newtouch.buglifecycle.entity.home;
 
 /**
  * @author lgyu

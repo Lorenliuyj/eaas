@@ -1,10 +1,10 @@
-package com.newtouch.buglifecycle.entity;
+package com.newtouch.buglifecycle.entity.base;
 
 /**
  * @author lgyu
  * @date 2019/2/21 16:54
  */
-public class SystemVO {
+public class SystemDTO {
     /**系统名称**/
     private  String systemName;
     /**版本号**/
