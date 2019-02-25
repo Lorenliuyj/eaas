@@ -10,7 +10,9 @@
             left join zt_project c on a.project = c.id
             left join zt_user d on a.resolvedBy = d.account
             where
-                 TIMESTAMPDIFF(hour,a.openedDate,now())>48
+                a.status = 'active'
+            and
+                TIMESTAMPDIFF(hour,a.openedDate,now())&gt;48
             group by b.name,c.name,d.account
         ) t
         <where>
@@ -32,6 +34,8 @@
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
+        where
+           a.status = 'active'
         group by b.name,c.name,d.account
         ) t
         <where>
