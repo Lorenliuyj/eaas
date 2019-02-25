@@ -82,7 +82,22 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     public List<PieVO> getUnsolvedPieByHour(String system, String version) {
-        return homeDao.getBugByHour(system, version,"active");
+        List<PieVO> list = homeDao.getBugByHour(system, version,"active");
+        for(PieVO vo:list){
+            switch(vo.getKey()){
+                case "lt24":
+                    vo.setMaxTime("24");
+                    break;
+                case "gt48":
+                    vo.setMinTime("48");
+                    break;
+                default:
+                    vo.setMaxTime("48");
+                    vo.setMinTime("24");
+                    break;
+            }
+        }
+        return list;
     }
 
     @Override
