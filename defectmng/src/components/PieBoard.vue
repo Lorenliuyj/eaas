@@ -77,17 +77,15 @@ export default {
         ]
       };
       pieOptions.title.text = pieParameter.pieName;
-      debugger;
       pieOptions.series[0].data = pieParameter.data;
       pieOptions.peiType = pieParameter.peiType;
       let pie = this.$echarts.init(this.$el);
       pie.setOption(pieOptions);
       let _this = this;
       pie.on("click", function(params) {
-        debugger;
         var requestObject = {};
-        requestObject.requestUrl = "www.baidu.com";
-        requestObject.requestObject = params;
+        requestObject.requestUrl = "/home/getDetailDataByPie";
+        requestObject.requestObject = params.data;
         //调用缺陷详细组件方法
         _this.$refs.defectDetail.loadDefectData(requestObject);
         _this.showDefectDetail = true;

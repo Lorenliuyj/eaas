@@ -68,7 +68,7 @@
               @on-change="jumpToPage"
             >
               <Option value="1">未解决缺陷</Option>
-              <Option value="2">已解决缺陷</Option>
+              <Option value="2">所有缺陷</Option>
             </Select>
           </div>
           <div id="pageCol">
@@ -161,7 +161,6 @@ export default {
     },
     //跳转页面
     jumpToPage: function() {
-      debugger;
       switch (this.pageSelectValue) {
         case "2":
           this.$router.push({
@@ -184,14 +183,10 @@ export default {
   created() {
     let _this = this;
     //初始化版本和系统
-    this.$axios
-      .all([_this.$fetch("home/versions"), _this.$fetch("home/systems")])
-      .then(
-        _this.$axios.spread(function(versionrsp, sysRsp) {
-          _this.versionList = versionrsp.data.result;
-          _this.systemList = sysRsp.data.result;
-        })
-      );
+    this.$fetch("home/getBaseData").then(response => {
+    _this.versionList = response.result.versionList;
+    _this.systemList = response.result.systemList;
+    });
     //初始化仪表盘
     this.updateDashBorad("/home/dashBoardData", {});
   }

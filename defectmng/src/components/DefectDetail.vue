@@ -86,7 +86,7 @@ export default {
         .then(
             response =>{
               debugger;
-              _this.data = response;
+              _this.data = response.result;
               _this.loading = false;
               _this.nodatatext="暂无数据";
             },
