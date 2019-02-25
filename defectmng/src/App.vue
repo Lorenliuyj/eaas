@@ -99,10 +99,10 @@ export default {
       isActivated: true,
       showThreshold: false,
       button1: "我的测试",
-      versionList: [{label:"2019aaa",value:"2019"},{label:"2018aaa",value:"2018"}],
-      version: "2019",
-      systemList: [{label:"受理",value:"2019"},{label:"受理太太",value:"2018"}],
-      system: "2019",
+      versionList: [],
+      version: "",
+      systemList: [],
+      system: "",
       dashParameter0: {},
       dashParameter1: {},
       dashParameter2: {}
@@ -118,9 +118,9 @@ export default {
     settingThenShow() {
       var result = this.$refs.thresholdSetting.getThresholdSettings();
       // this.$fetch("",result).then(resp=>{})
-      this.$refs.loadDashBoard0.reloadDashBoard(result.dashParameter0);
-      this.$refs.loadDashBoard1.reloadDashBoard(result.dashParameter1);
-      this.$refs.loadDashBoard2.reloadDashBoard(result.dashParameter2);
+      this.$refs.loadDashBoard0.reloadDashBoard(result.dashBoardRedev);
+      this.$refs.loadDashBoard1.reloadDashBoard(result.dashBoard48Hour);
+      this.$refs.loadDashBoard2.reloadDashBoard(result.dashBoard24Hour);
     },
     /**
      * 更新仪表盘
@@ -132,6 +132,8 @@ export default {
       this.$fetch(url, parameters)
         .then(response => {
           response.result.dashBoardRedev.title = "返工缺陷仪表盘";
+          //初始化阀值设置参数 
+          _this.$refs.thresholdSetting.initDashBoardSetting(response.result);
           _this.$refs.loadDashBoard0.loadDashBoard(
             response.result.dashBoardRedev
           );
