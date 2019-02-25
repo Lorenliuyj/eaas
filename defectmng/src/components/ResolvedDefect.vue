@@ -307,8 +307,8 @@ export default {
             pieForOver48.pieName = "超过48小时未处理缺陷按系统占比";
             pieForOver48.data = response.result.pieForSys;
             _this.$refs.pieForSystem.loadPie(pieForSys);
-            _this.$refs.pieForRework.loadPie(pieForRework);
-            _this.$refs.pieForOver48.loadPie(pieForOver48);
+            _this.$refs.pieForRework.loadPie(pieForRework,"type","redev");
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48");
             },
             function(response) {
               // TODO
@@ -327,12 +327,11 @@ export default {
             var pieParameter = {};
             pieParameter.pieName = "缺陷按时间占比";
             pieParameter.data = response.result;
-              _this.$refs.pieForHours.loadPie(pieParameter);
+              _this.$refs.pieForHours.loadPie(pieParameter,"","","");
             },
             function(response) {
               // TODO
             }
-            
       )
     },
     exportDataFor48unDeal:function(filename){

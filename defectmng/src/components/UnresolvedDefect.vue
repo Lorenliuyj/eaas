@@ -309,18 +309,15 @@ export default {
             var pieForSys = {};
             pieForSys.pieName = "未解决缺陷按系统占比";
             pieForSys.data = response.result.pieForSys;
-            this.assemblePieName("PieForSys",pieForSys.data);
             var pieForRework = {};
             pieForRework.pieName = "未解决返工缺陷按系统占比";
             pieForRework.data = response.result.pieForSys;
-            this.assemblePieName("PieForRework",pieForRework.data);
             var pieForOver48 = {};
             pieForOver48.pieName = "超过48小时未解决缺陷按系统占比";
             pieForOver48.data = response.result.pieForSys;
-            this.assemblePieName("PieForOver48",pieForOver48.data);
-            _this.$refs.pieForSystem.loadPie(pieForSys);
-            _this.$refs.pieForRework.loadPie(pieForRework);
-            _this.$refs.pieForOver48.loadPie(pieForOver48);
+            _this.$refs.pieForSystem.loadPie(pieForSys,"","","active");
+            _this.$refs.pieForRework.loadPie(pieForRework,"type","redev","active");
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48","active");
             },
             function(response) {
               // TODO
@@ -339,18 +336,12 @@ export default {
             var pieParameter = {};
             pieParameter.pieName = "未解决缺陷按时间占比";
             pieParameter.data = response.result;
-            this.assemblePieName("PieForHours",pieParameter.data);
-              _this.$refs.pieForHours.loadPie(pieParameter);
+              _this.$refs.pieForHours.loadPie(pieParameter,"","","active");
             },
             function(response) {
               // TODO
             }
       )
-    },
-    assemblePieName:function(pieName,data){
-      for(let i of data){
-        i.table = pieName;
-      }
     },
     exportDataFor48unDeal:function(filename){
       this.$refs.tablsFor48unDeal.exportCsv({
