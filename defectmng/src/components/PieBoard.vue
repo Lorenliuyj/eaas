@@ -31,14 +31,11 @@ export default {
           text: "",
           left: 'left',
           top: 20,
-          textStyle: {
-            // color: "#ccc"
-          }
         },
         series: [
           {
             type: "pie",
-            radius: "70%",
+            radius: "60%",
             label: {
               //饼图图形上的文本标签
               normal: {
@@ -48,7 +45,6 @@ export default {
                   fontWeight: 100,
                   fontSize: 12 //文字的字体大小
                 },
-                // formatter: "{d}%{b}",
                 formatter:function(val){   //让series 中的文字进行换行
                       return val.percent.toFixed(0)+"%\n"+val.name;
                     }
@@ -66,13 +62,13 @@ export default {
                       length2: 20,
                   }
               },
-            itemStyle: {
-                normal: {
-                    // color: '#c23531',
-                    shadowBlur: 20,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)',
-                }
-            },
+            // itemStyle: {
+            //     normal: {
+            //         // color: '#c23531',
+            //         shadowBlur: 20,
+            //         shadowColor: 'rgba(0, 0, 0, 0.5)',
+            //     }
+            // },
           }
         ]
       };

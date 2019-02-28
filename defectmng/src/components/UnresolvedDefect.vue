@@ -80,6 +80,7 @@
                 <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportTableForRework('未解决返工缺陷明细')" />
             </p>
             <Table :columns="columnForRework" height="400" stripe :data="tableDataForRework" ref="tableForRework" size="small"></Table>
+            <Page :total="dataCountForRework" show-sizer show-total on-change="eventLoadTableForRework(pageNum)"/>
           </Card>
         </div>
       </div>
@@ -99,28 +100,17 @@ export default {
   /*************************************数据**************************************** */
   data() {
     return {
-      //版本
-      versionList: [
-        {
-          value: "capital_20180221",
-          label: "capital_20180221"
-        },
-        {
-          value: "capital_20180220",
-          label: "capital_20180220"
-        }
-      ],
-      model1: "capital_20180220", //默认
       //系统
       systemList: [],
       sysFrom48UnDeal:"",
       sysFromRank10:"",
       sysFromRework:"",
       sysFromPie:"",
+      // 表格数据
       tableDataFor48unDeal: [],
       tableDataForRank10: [],
       tableDataForRework:[],
-      //table表
+      //表格字段
       columnForRework: [
         {
           title: "序号",
@@ -185,27 +175,42 @@ export default {
         }
       ],
       resolvedData: [],
-      textName: "ECharts 入门示例",
       count: 10,
       showDefectDetail:false,
-      version:""
+      dataCountForRework:0,
     };
+  },
+  props:{
+    version:{
+      type:String,
+      default:"",
+    }
+  },
+  watch:{
+    version:function(newV,oldV){
+      this.loadPageData();
+    }
   },
   components:{
     PieBoard,
     DefectDetail
   },
   created(){
-    //获取APP页面传入的参数
-    this.getAppParam();
-    // 加载所有系统下拉框
-    this.loadSystem();
-    // 加载饼图
-    this.loadPies();
-    // 加载表格
-    this.loadTables();
+    
+  },
+  mounted(){
+    //加载页面数据
+    this.loadPageData();
   },
   methods:{
+    loadPageData:function(){
+      // 加载所有系统下拉框
+      this.loadSystem();
+      // 加载饼图
+      this.loadPies();
+      // 加载表格
+      this.loadTables();
+    },
     loadSystem:function(){
       let _this = this;
       //初始系统
@@ -247,11 +252,13 @@ export default {
         }
       )
     },
-    loadTableForRework:function(){
+    loadTableForRework:function(pageNum,pageSize){
       var reqObj = {};
       reqObj.systemName = this.sysFromRework;
       reqObj.version = this.version;
       reqObj.unDeal = true;
+      reqObj.pageNum = pageNum;
+      reqObj.pageSize = pageSize;
       this.$fetch("/home/tableDataForCQOver5",reqObj).then(
         response =>{
           this.tableDataForRework = response.result;
@@ -259,9 +266,6 @@ export default {
 
         }
       )
-    },
-    getAppParam(){
-      this.version = this.$route.params.version;
     },
     // 超48小时未解决缺陷排名 表格穿透弹窗方法
     showDefectFrom48UnDeal:function(data,index){

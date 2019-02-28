@@ -80,6 +80,7 @@
                 <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportTableForCQOver5('缺陷超5个的cq单明细')" />
             </p>
             <Table :columns="columnForCQOver5" height="400" stripe :data="tableDataForCQOver5" ref="tableForCQOver5" size="small" @on-row-click="showDefectFromSystem"></Table>
+            <Page :total="40" show-sizer show-total />
           </Card>
         </div>
       </div>
@@ -122,10 +123,10 @@ export default {
           label: "帐管系统"
         }
       ],
-      sysFrom48UnDeal:"eaas",
-      sysFromRank10:"eaas",
-      sysFromCQOver5:"eaas",
-      sysFromPie:"eaas",
+      sysFrom48UnDeal:"",
+      sysFromRank10:"",
+      sysFromCQOver5:"",
+      sysFromPie:"",
       tableDataFor48unDeal: [],
       tableDataForRank10: [],
       tableDataForCQOver5:[],
@@ -231,8 +232,8 @@ export default {
     },
     loadTableForCQOver5:function(){
       var reqObj = {};
-      reqObj.system = "受理平台"//TODO this.sysFrom48UnDeal;
-      reqObj.version = ""//TODO this.version;
+      reqObj.system = this.sysFrom48UnDeal;
+      reqObj.version = this.version;
       reqObj.unDeal = false;
       this.$fetch("/home/tableDataForCQOver5",reqObj).then(
         response =>{

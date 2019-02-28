@@ -72,7 +72,7 @@
             </Select>
           </div>
           <div id="pageCol">
-            <router-view></router-view>
+            <router-view :version="version"></router-view>
           </div>
         </div>
       </Content>
@@ -117,10 +117,12 @@ export default {
     //阀值设置完成后的处理
     settingThenShow() {
       var result = this.$refs.thresholdSetting.getThresholdSettings();
-      // this.$fetch("",result).then(resp=>{})
-      this.$refs.loadDashBoard0.reloadDashBoard(result.dashBoardRedev);
-      this.$refs.loadDashBoard1.reloadDashBoard(result.dashBoard48Hour);
-      this.$refs.loadDashBoard2.reloadDashBoard(result.dashBoard24Hour);
+      let _this = this;
+      this.$fetch("home/setDashBoardThreshold", {json:JSON.stringify(result)}).then(resp => {
+      _this.$refs.loadDashBoard0.reloadDashBoard(result.dashBoardRedev);
+      _this.$refs.loadDashBoard1.reloadDashBoard(result.dashBoard48Hour);
+      _this.$refs.loadDashBoard2.reloadDashBoard(result.dashBoard24Hour);
+      });
     },
     /**
      * 更新仪表盘

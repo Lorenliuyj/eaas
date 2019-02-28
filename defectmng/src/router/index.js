@@ -18,6 +18,7 @@ Vue.prototype.$put=put;
 Vue.use(iView);
 Vue.use(VueRouter);
 Vue.prototype.$axios= axios
+// axios.defaults.baseURL='http://182.119.90.145:8080'
 // axios.defaults.baseURL='http://182.207.113.235:8080' //简松
 // axios.defaults.baseURL='http://182.207.113.161:8080' //彭信
 axios.defaults.baseURL='http://182.207.113.95:8080' //广宇
