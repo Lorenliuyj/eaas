@@ -39,20 +39,20 @@
         WHERE
             1=1
         <choose>
-            <when test="version!=null and version!=''">
+            <when test="versionId!=null and versionId!=''">
                 AND
-                c.name = #{version}
+                c.id = #{versionId}
             </when>
             <otherwise>
                 AND
                 c.name like '%'||(select right(YEAR (CURDATE()),2))
             </otherwise>
         </choose>
-        <if test="system!=null and system!=''">
-            AND  b.name = #{system}
+        <if test="systemId!=null and systemId!=''">
+            AND  b.id = #{systemId}
         </if>
         GROUP BY
-            c.name,b.name,e.title,e.id
+            c.id,b.id,e.title,e.id
         HAVING(bugSum &gt;5)
     </select>
 
