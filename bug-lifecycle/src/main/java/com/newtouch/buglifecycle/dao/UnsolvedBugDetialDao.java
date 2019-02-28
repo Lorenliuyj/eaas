@@ -8,5 +8,5 @@ import java.util.List;
 public interface UnsolvedBugDetialDao {
 
     List<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO);
-
+    List<UnsolvedBugDetialVO> findAll(SystemDTO systemVO);
 }

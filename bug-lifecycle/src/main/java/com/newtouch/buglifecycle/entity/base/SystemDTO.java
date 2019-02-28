@@ -5,8 +5,13 @@ package com.newtouch.buglifecycle.entity.base;
  * @date 2019/2/21 16:54
  */
 public class SystemDTO {
+
+    /**系统ID**/
+    private  String systemId;
     /**系统名称**/
     private  String systemName;
+    /**版本号ID**/
+    private String versionId;
     /**版本号**/
     private String version;
     /**用户**/
@@ -26,9 +31,9 @@ public class SystemDTO {
     public SystemDTO() {
     }
 
-    public SystemDTO(String systemName, String version, Boolean unDeal) {
-        this.systemName = systemName;
-        this.version = version;
+    public SystemDTO(String systemId, String versionId, Boolean unDeal) {
+        this.systemId = systemId;
+        this.versionId = versionId;
         this.unDeal = unDeal;
     }
 
@@ -102,5 +107,21 @@ public class SystemDTO {
 
     public void setMaxTime(String maxTime) {
         this.maxTime = maxTime;
+    }
+
+    public String getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 }

@@ -16,7 +16,7 @@ public class UnsolvedBugDetialServiceImpl implements UnsolvedBugDetialService {
 
     @Override
     public List<UnsolvedBugDetialVO> findAll(SystemDTO systemVO) {
-        return unsolvedBugDetialDao.findBugDetail(systemVO);
+        return unsolvedBugDetialDao.findAll(systemVO);
     }
 
     @Override

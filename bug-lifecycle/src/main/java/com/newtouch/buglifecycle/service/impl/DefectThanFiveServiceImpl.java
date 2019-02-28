@@ -1,6 +1,7 @@
 package com.newtouch.buglifecycle.service.impl;
 
 import com.newtouch.buglifecycle.dao.DefectThanFiveDao;
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.service.DefectThanFiveService;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class DefectThanFiveServiceImpl implements DefectThanFiveService {
     DefectThanFiveDao defectThanFiveDao;
 
     @Override
-    public List<DefectThanFiveVO> findThan5Bug(String system, String version, boolean unDeal) {
-        return defectThanFiveDao.findThan5Bug(system,version,unDeal);
+    public List<DefectThanFiveVO> findThan5Bug(SystemDTO systemVO) {
+        return defectThanFiveDao.findThan5Bug(systemVO);
     }
 
 }

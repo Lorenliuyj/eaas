@@ -20,13 +20,13 @@
             and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
         </otherwise>
         </choose>
-        <if test="systemName !=null">
-           and b.name = #{systemName}
+        <if test="systemId !=null">
+           and b.id = #{systemId}
         </if>
         <choose>
-            <when test="version!=null and version!=''">
+            <when test="versionId!=null and versionId!=''">
                 AND
-                c.name = #{version}
+                c.id = #{versionId}
             </when>
             <otherwise>
                 AND
@@ -47,13 +47,13 @@
         <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
             and a.status = 'active'
         </if>
-        <if test="systemName !=null">
-            and b.name = #{systemName}
+        <if test="systemId !=null">
+            and b.id = #{systemId}
         </if>
         <choose>
-            <when test="version!=null and version!=''">
+            <when test="versionId!=null and versionId!=''">
                 AND
-                c.name = #{version}
+                c.id = #{versionId}
             </when>
             <otherwise>
                 AND
@@ -105,17 +105,17 @@
         AND
         a.type = 'redev'
         <choose>
-            <when test="version!=null and version!=''">
+            <when test="versionId!=null and versionId!=''">
                 AND
-                c.name = #{version}
+                c.id = #{versionId}
             </when>
             <otherwise>
                 AND
                 c.name like '%'||(select right(YEAR (CURDATE()),2))
             </otherwise>
         </choose>
-        <if test="systemName!=null and systemName!=''">
-            AND  b.name = #{systemName}
+        <if test="systemId!=null and systemId!=''">
+            AND  b.id = #{systemId}
         </if>
         <if test="unDeal!=null and unDeal!=''">
             AND TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
