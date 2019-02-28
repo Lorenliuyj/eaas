@@ -8,8 +8,9 @@
         <div class="float_right versions">
           <span style="font-size: 15px;color:darkgrey">版本:</span>
           <Select
-            v-model="version"
-            style="width:150px"
+            multiple
+            v-model="versionIds"
+            style="width:260px"
             clearable
             @on-change="changeVersionOrSys(1)"
           >
@@ -25,7 +26,7 @@
               仪表盘
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系统:
               <Select
-                v-model="system"
+                v-model="systemId"
                 style="width:150px"
                 size="small"
                 clearable
@@ -41,7 +42,6 @@
                 v-on:click.native.stop="() => {}"
                 size="24"
               />
-              
               <Modal
                 v-model="showThreshold"
                 title="阀值设置"
@@ -73,7 +73,7 @@
             </Select>
           </div>
           <div id="pageCol">
-            <router-view :version="version"></router-view>
+            <router-view :versionIds="versionIds"></router-view>
           </div>
         </div>
       </Content>
@@ -101,9 +101,10 @@ export default {
       showThreshold: false,
       button1: "我的测试",
       versionList: [],
-      version: "",
+      versionIds: [],
       systemList: [],
-      system: "",
+      systemId: "",
+      version:"",//待删除
       dashParameter0: {},
       dashParameter1: {},
       dashParameter2: {}
@@ -156,12 +157,12 @@ export default {
     //版本或者系统更改时触发事件
     changeVersionOrSys(type) {
       if (type === 1) {
-        this.updateDashBorad("/home/dashBoardData", { "version": this.version,"system":this.system });
+        this.updateDashBorad("/home/dashBoardData", { "versionIds": this.versionIds,"systemId":this.systemId });
         this.jumpToPage();
-        console.log(this.version);
+        console.log(this.versionIds);
       } else if (type === 2) {
-        console.log(this.system);
-        this.updateDashBorad("/home/dashBoardData", { "version": this.version,"system":this.system });
+        console.log(this.systemId);
+        this.updateDashBorad("/home/dashBoardData", { "versionIds": this.versionIds,"systemId":this.systemId });
       }
     },
     //跳转页面
@@ -170,13 +171,13 @@ export default {
         case "2":
           this.$router.push({
             name: "resolved-defect",
-            params: { version: this.version }
+            params: { versionIds: this.versionIds }
           });
           break;
         case "1":
           this.$router.push({
             name: "unresolved-defect",
-            params: { version: this.version }
+            params: { versionIds: this.versionIds }
           });
           break;
         default:
