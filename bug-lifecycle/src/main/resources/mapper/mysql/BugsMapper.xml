@@ -30,7 +30,7 @@
             </otherwise>
         </choose>
         <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND d.account = #{systemDTO.account}
+            AND f.account = #{systemDTO.account}
         </if>
     </sql>
 
@@ -55,7 +55,7 @@
             </otherwise>
         </choose>
         <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND d.account = #{systemDTO.account}
+            AND f.account = #{systemDTO.account}
         </if>
     </sql>
 
