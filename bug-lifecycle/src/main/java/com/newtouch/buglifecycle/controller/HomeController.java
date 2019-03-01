@@ -145,8 +145,8 @@ public class HomeController {
      * @return
      */
     @GetMapping(value = "/tableFor48UnDealDetail")
-    public ResponseVO tableFor48UnDealDetail(SystemDTO systemDTO){
-        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemDTO);
+    public ResponseVO tableFor48UnDealDetail(SystemDTO systemDTO,Page page){
+        Page<UnsolvedBugDetialVO> list = bugsService.tableFor48UnDealDetail(systemDTO,page);
         return ResponseUtil.successResponse(list);
     }
 
@@ -155,8 +155,8 @@ public class HomeController {
      * @return
      */
     @GetMapping(value = "/tableForRank10Detail")
-    public ResponseVO tableForRank10Detail(SystemDTO systemDTO){
-        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemDTO);
+    public ResponseVO tableForRank10Detail(SystemDTO systemDTO,Page page){
+        Page<UnsolvedBugDetialVO> list = bugsService.tableForRank10Detail(systemDTO,page);
         return ResponseUtil.successResponse(list);
     }
 
