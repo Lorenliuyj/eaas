@@ -13,7 +13,7 @@
                 and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
             </otherwise>
         </choose>
-        <if test="systemDTO.systemId !=null">
+        <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
         <choose>
@@ -26,16 +26,19 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
+        <if test="systemDTO.account!=null and systemDTO.account!=''">
+            AND d.account = #{systemDTO.account}
+        </if>
     </sql>
 
     <sql id="10Id">
         <if test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
             and a.status = 'active'
         </if>
-        <if test="systemDTO.systemId !=null">
+        <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
         <choose>
@@ -48,9 +51,12 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
+        <if test="systemDTO.account!=null and systemDTO.account!=''">
+            AND d.account = #{systemDTO.account}
+        </if>
     </sql>
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
@@ -70,7 +76,7 @@
             and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
         </otherwise>
         </choose>
-        <if test="systemId !=null">
+        <if test="systemId !=null and systemId!=''">
            and b.id = #{systemId}
         </if>
         <choose>
@@ -83,7 +89,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
         group by d.account
@@ -100,7 +106,7 @@
         <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
             and a.status = 'active'
         </if>
-        <if test="systemId !=null">
+        <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
         <choose>
@@ -113,7 +119,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
         group by d.account
@@ -170,7 +176,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
         <if test="systemId!=null and systemId!=''">
