@@ -4,7 +4,7 @@
 
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-      select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+      select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
@@ -45,7 +45,7 @@
     </select>
 
     <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-        select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
