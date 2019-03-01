@@ -12,8 +12,6 @@ public interface BugsService {
 
     List<BugsInfoVO> tableForRank10(SystemDTO systemVO);
 
-    Page<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO, Page page);
-
     Page<UnsolvedBugDetialVO> tableFor48UnDealDetail(SystemDTO systemVO, Page page);
 
     Page<UnsolvedBugDetialVO> tableForRank10Detail(SystemDTO systemVO, Page page);

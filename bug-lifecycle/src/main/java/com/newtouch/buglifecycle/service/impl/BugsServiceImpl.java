@@ -26,11 +26,6 @@ public class BugsServiceImpl implements BugsService {
     }
 
     @Override
-    public Page<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO, Page page) {
-        return bugsDao.tableForUnDealDetail(systemVO,page);
-    }
-
-    @Override
     public Page<UnsolvedBugDetialVO> tableFor48UnDealDetail(SystemDTO systemDTO, Page page) {
         page.init();
         page.setList(bugsDao.tableFor48UnDealDetail(systemDTO,page));

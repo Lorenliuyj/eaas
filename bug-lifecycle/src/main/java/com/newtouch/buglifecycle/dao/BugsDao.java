@@ -23,8 +23,6 @@ public interface BugsDao {
     List<BugsInfoVO> tableFor48UnDeal(SystemDTO systemVO);
 
 
-    Page<UnsolvedBugDetialVO> tableForUnDealDetail(@Param("systemDTO") SystemDTO systemDTO, @Param("page") Page page);
-
     /**
      * bug数排名前十的
      * @param systemVO
