@@ -5,6 +5,7 @@ import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
+import com.newtouch.common.entity.base.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +26,23 @@ public class BugsServiceImpl implements BugsService {
     }
 
     @Override
-    public List<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO) {
-        return bugsDao.tableForUnDealDetail(systemVO);
+    public Page<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO, Page page) {
+        return bugsDao.tableForUnDealDetail(systemVO,page);
+    }
+
+    @Override
+    public Page<UnsolvedBugDetialVO> tableFor48UnDealDetail(SystemDTO systemDTO, Page page) {
+        page.init();
+        page.setList(bugsDao.tableFor48UnDealDetail(systemDTO,page));
+        page.setTotalNum(bugsDao.tableFor48UnDealCount(systemDTO));
+        return page;
+    }
+
+    @Override
+    public Page<UnsolvedBugDetialVO> tableForRank10Detail(SystemDTO systemVO, Page page) {
+        page.init();
+        page.setList(bugsDao.tableForRank10Detail(systemVO,page));
+        page.setTotalNum(bugsDao.tableForRank10Count(systemVO));
+        return page;
     }
 }
