@@ -422,3 +422,682 @@
 2019-03-01 10:14:13.856 [main] DEBUG com.newtouch.buglifecycle.BugLifecycleApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
 2019-03-01 10:14:13.857 [main] INFO  com.newtouch.buglifecycle.BugLifecycleApplication - The following profiles are active: dev
 2019-03-01 10:14:16.378 [main] INFO  com.newtouch.buglifecycle.BugLifecycleApplication - Started BugLifecycleApplication in 3.026 seconds (JVM running for 3.69)
+2019-03-01 13:34:27.389 [main] INFO  com.newtouch.buglifecycle.BugLifecycleApplication - Starting BugLifecycleApplication on TH-20170914WWKT with PID 6772 (C:\Users\lenovo\Desktop\git\eaas\bug-lifecycle\target\classes started by lenovo in C:\Users\lenovo\Desktop\git\eaas\bug-lifecycle)
+2019-03-01 13:34:27.391 [main] DEBUG com.newtouch.buglifecycle.BugLifecycleApplication - Running with Spring Boot v2.1.3.RELEASE, Spring v5.1.5.RELEASE
+2019-03-01 13:34:27.392 [main] INFO  com.newtouch.buglifecycle.BugLifecycleApplication - The following profiles are active: dev
+2019-03-01 13:34:29.813 [main] INFO  com.newtouch.buglifecycle.BugLifecycleApplication - Started BugLifecycleApplication in 2.891 seconds (JVM running for 3.562)
+2019-03-01 13:36:01.565 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:36:01.569 [http-nio-8080-exec-4] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:36:01.601 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:36:01.601 [http-nio-8080-exec-4] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:36:01.621 [http-nio-8080-exec-4] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:36:01.621 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:36:01.621 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:36:01.623 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:36:01.623 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:36:01.624 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:36:01.624 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:36:01.624 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:36:01.624 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:36:01.624 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:36:01.625 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:36:01.625 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:36:01.625 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:36:01.626 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:36:01.629 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:36:01.629 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:36:01.629 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:36:01.630 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:36:01.630 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:36:01.630 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:36:01.630 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:36:01.631 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:36:01.631 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:36:01.632 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:36:01.633 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:36:01.634 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:36:01.635 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:36:01.636 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:36:01.636 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:36:01.636 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:36:01.636 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:36:01.636 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:36:01.637 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:36:01.637 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:36:01.637 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:36:01.637 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:36:01.637 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:36:08.709 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:36:08.711 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:36:08.715 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:36:08.715 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:36:08.716 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:36:08.718 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:36:08.719 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:36:08.720 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:36:08.721 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:36:08.722 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:36:08.723 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:36:08.723 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:36:08.724 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:36:08.724 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:36:08.724 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:36:08.725 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:36:08.726 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:36:08.726 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:36:08.729 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:36:08.729 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:36:08.729 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:36:08.730 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:36:08.730 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:36:08.730 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:36:08.731 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:36:08.731 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:36:08.732 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:36:08.732 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:36:08.733 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:36:08.733 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:36:08.733 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:36:08.733 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:36:08.734 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:36:08.734 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:36:08.734 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:36:08.735 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:36:08.735 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:36:08.735 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:36:08.736 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:36:08.736 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:36:08.737 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:36:08.737 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:36:08.737 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:36:08.738 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:36:08.738 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:36:08.739 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:36:08.739 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:36:08.739 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:36:08.740 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:36:08.740 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:36:08.740 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:36:08.741 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:36:08.741 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:36:08.742 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:36:08.742 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:36:08.742 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:36:08.743 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:36:08.743 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:36:08.744 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:36:08.744 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:36:08.745 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:36:08.745 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:36:08.745 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:36:08.746 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:36:08.746 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:36:08.746 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:36:15.944 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:36:15.946 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:36:15.946 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:36:15.947 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:36:15.947 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:36:15.947 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:36:15.948 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:36:15.948 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:36:15.949 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:36:15.949 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:36:15.949 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:36:15.949 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:36:15.949 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:36:15.950 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:36:15.951 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:36:15.952 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:36:15.952 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:36:15.953 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:36:15.953 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:36:15.953 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:36:15.953 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:36:15.953 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:36:15.956 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:36:15.956 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:36:15.957 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:36:15.957 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:36:15.959 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:36:15.959 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:36:15.960 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:36:15.961 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:36:15.962 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:36:15.964 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:36:15.965 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:36:15.973 [http-nio-8080-exec-8] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:36:15.974 [http-nio-8080-exec-8] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:36:15.979 [http-nio-8080-exec-8] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:36:15.980 [http-nio-8080-exec-3] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev"; 
+2019-03-01 13:36:15.981 [http-nio-8080-exec-3] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - ==> Parameters: active(String)
+2019-03-01 13:36:15.985 [http-nio-8080-exec-3] TRACE c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==    Columns: count(b.id)
+2019-03-01 13:36:15.985 [http-nio-8080-exec-3] TRACE c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==        Row: 0
+2019-03-01 13:36:15.988 [http-nio-8080-exec-3] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==      Total: 1
+2019-03-01 13:36:15.988 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) < 24; 
+2019-03-01 13:36:15.988 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - ==> Parameters: active(String)
+2019-03-01 13:36:15.991 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:36:15.991 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:36:15.992 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==    Columns: count(b.id)
+2019-03-01 13:36:15.992 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==        Row: 0
+2019-03-01 13:36:15.992 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==      Total: 1
+2019-03-01 13:36:15.993 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48; 
+2019-03-01 13:36:15.993 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - ==> Parameters: active(String)
+2019-03-01 13:36:15.997 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==    Columns: count(b.id)
+2019-03-01 13:36:15.997 [http-nio-8080-exec-3] TRACE c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==        Row: 0
+2019-03-01 13:36:15.997 [http-nio-8080-exec-3] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==      Total: 1
+2019-03-01 13:36:15.997 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:36:15.997 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:36:15.998 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:36:16.002 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:36:16.005 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:36:16.006 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:36:16.011 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0
+2019-03-01 13:36:29.361 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:36:29.362 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:36:29.363 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:36:29.364 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:36:29.364 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:36:29.364 [http-nio-8080-exec-7] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:36:29.364 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:36:29.364 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:36:29.364 [http-nio-8080-exec-7] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:36:29.364 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:36:29.365 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:36:29.366 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:36:29.368 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:36:29.369 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:36:29.370 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:36:29.371 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:36:29.371 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:36:29.371 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:36:29.371 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:36:29.371 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:36:29.372 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:36:29.373 [http-nio-8080-exec-7] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:36:29.373 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:36:29.374 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:36:29.375 [http-nio-8080-exec-10] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:36:29.375 [http-nio-8080-exec-10] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:38:55.305 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:38:55.307 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:38:55.307 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:38:55.307 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:38:55.309 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:38:55.309 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:38:55.310 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:38:55.310 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:38:55.310 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:38:55.311 [http-nio-8080-exec-9] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:38:55.311 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:38:55.311 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:38:55.311 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:38:55.312 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:38:55.312 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:38:55.312 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:38:55.313 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:38:55.314 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:38:55.316 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:38:55.316 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:38:55.316 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:38:55.317 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:38:55.317 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:38:55.317 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:38:55.317 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:38:55.318 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:38:55.318 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:38:55.318 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:38:55.319 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:38:55.319 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:38:55.320 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:38:55.320 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:38:55.320 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:38:55.320 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:38:55.321 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:38:55.321 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:38:55.321 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:38:55.321 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:38:55.322 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:38:55.322 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:38:55.322 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:38:55.322 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:38:55.323 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:38:55.323 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:38:55.323 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:38:55.323 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:38:55.323 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:38:55.324 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:38:55.324 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:38:55.324 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:38:55.324 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:38:55.325 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:38:55.325 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:38:55.325 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:38:55.325 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:38:55.326 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:38:55.326 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:38:55.326 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:38:55.327 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:38:55.327 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:38:55.327 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:38:55.327 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:38:55.327 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:38:55.328 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:38:55.328 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:38:55.328 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:39:05.957 [http-nio-8080-exec-10] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==>  Preparing: SELECT CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "小于24小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "小于48小时" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "大于48小时" END `name`, count(1) `value`, CASE WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 24 THEN "lt24" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 24 AND TIMESTAMPDIFF(HOUR, b.openedDate, now()) < 48 THEN "gt24lt48" WHEN TIMESTAMPDIFF(HOUR, b.openedDate, now()) > 48 THEN "gt48" END `key` FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE b. STATUS = "active" group by `name`,`key` 
+2019-03-01 13:39:05.958 [http-nio-8080-exec-10] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - ==> Parameters: 
+2019-03-01 13:39:05.960 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:39:05.960 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:39:05.962 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:39:05.962 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:39:05.963 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:39:05.963 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:39:05.963 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:39:05.964 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:39:05.964 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:39:05.965 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:39:05.965 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:39:05.965 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:39:05.965 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:39:05.966 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:39:05.966 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:39:05.967 [http-nio-8080-exec-10] DEBUG com.newtouch.buglifecycle.dao.HomeDao.getBugByHour - <==      Total: 0
+2019-03-01 13:39:05.969 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:39:05.969 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:39:05.969 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:39:05.969 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:39:05.970 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:39:05.970 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:39:05.970 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:39:05.970 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:39:05.970 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:39:05.971 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:39:05.972 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:39:05.972 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:39:05.972 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:39:05.973 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:39:05.974 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:39:05.974 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:39:05.974 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:39:05.974 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:39:05.975 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:39:05.976 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:39:05.977 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:39:05.977 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:39:05.977 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:39:05.977 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:39:05.977 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:39:05.978 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:39:05.979 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:43:32.679 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:43:32.680 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:43:32.684 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:43:32.685 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:43:32.685 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:43:32.685 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:43:32.686 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:43:32.687 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:43:32.687 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:43:32.687 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:43:32.688 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:43:32.691 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:43:32.691 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:43:32.691 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:43:32.692 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:43:32.692 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:43:32.692 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:43:32.692 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:43:32.692 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:43:32.693 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:43:32.693 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:43:32.693 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:43:32.696 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:43:32.701 [http-nio-8080-exec-4] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev"; 
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:43:32.702 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:43:32.702 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:43:32.702 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:43:32.703 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:43:32.703 [http-nio-8080-exec-4] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - ==> Parameters: active(String)
+2019-03-01 13:43:32.704 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:43:32.705 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:43:32.706 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:43:32.706 [http-nio-8080-exec-9] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:43:32.706 [http-nio-8080-exec-9] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:43:32.713 [http-nio-8080-exec-4] TRACE c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==    Columns: count(b.id)
+2019-03-01 13:43:32.713 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:43:32.713 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==>  Preparing: select id `value` ,`name` label from zt_product order by id DESC; 
+2019-03-01 13:43:32.713 [http-nio-8080-exec-4] TRACE c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==        Row: 0
+2019-03-01 13:43:32.713 [http-nio-8080-exec-4] DEBUG c.n.buglifecycle.dao.HomeDao.getRedevBugCount - <==      Total: 1
+2019-03-01 13:43:32.713 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:43:32.714 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) < 24; 
+2019-03-01 13:43:32.714 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:43:32.714 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - ==> Parameters: active(String)
+2019-03-01 13:43:32.714 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - ==> Parameters: 
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==    Columns: value, label
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 9, 008-受理平台
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 8, 000-团队规划
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 7, 007-企业年金
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 6, 06-XBRL
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 5, 05-新网上客服
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 4, 04-网上客服
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 3, 03-新估值
+2019-03-01 13:43:32.716 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 2, 02-平台
+2019-03-01 13:43:32.717 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==        Row: 1, 01-老估值
+2019-03-01 13:43:32.717 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getSystemList - <==      Total: 9
+2019-03-01 13:43:32.717 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==>  Preparing: select id `value` ,`name` label from zt_project order by id DESC; 
+2019-03-01 13:43:32.717 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - ==> Parameters: 
+2019-03-01 13:43:32.719 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==    Columns: value, label
+2019-03-01 13:43:32.719 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 46, 190419-常规版本
+2019-03-01 13:43:32.719 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 45, 190322-常规版本
+2019-03-01 13:43:32.719 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 44, 190111-常规版本
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 43, 受理平台SIT测试
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 42, 精进-2018
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 41, PASS-180324-常规版本
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 40, 入职培训
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 39, PASS-180519-常规小版本
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 38, 模块梳理与验收
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 37, 组长拓展
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 36, 160924之前历史版本
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 35, 托管TA项目
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 34, 实习项目
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 33, PASS-180203-常规版本
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 32, 自动化19年二季度
+2019-03-01 13:43:32.720 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 31, 自动化19年一季度
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 30, PASS-171202-常规版本
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 29, 190222-小版本
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 28, 自动化脚本测试验证
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 27, PASS-170923-培训
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 26, 投产问题统计确认
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 25, 新一代网上客服回归
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 24, PASS-170923-常规版本
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 23, 精进-2019
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 22, 新一代网上客服SIT
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 21, 03-团队分配模板参考
+2019-03-01 13:43:32.721 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 20, 181215-常规版本
+2019-03-01 13:43:32.722 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==    Columns: count(b.id)
+2019-03-01 13:43:32.723 [http-nio-8080-exec-7] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 19, PASS-170520-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==        Row: 0
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 18, PASS-180623-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 17, 精进-18年三季度
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 16, PASS-170715-培训
+2019-03-01 13:43:32.724 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get24BugCount - <==      Total: 1
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 15, 新一代网上客服UAT
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 14, PASS-181117-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 13, PASS-170225-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 12, PASS-180421-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 11, PASS-181013-常规小版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 10, 02-遗留问题统计
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 9, PASS-170715-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 8, 01-团队任务
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 7, PASS-180915-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 6, PASS-180811-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 5, PASS-170520-培训
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 4, PASS-161210-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 3, 02-自动化测试
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 2, PASS-180721-常规小版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] TRACE c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==        Row: 1, PASS-160924-常规版本
+2019-03-01 13:43:32.724 [http-nio-8080-exec-6] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getVersionList - <==      Total: 46
+2019-03-01 13:43:32.725 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - ==>  Preparing: SELECT count(b.id) FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND b. STATUS = ? AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48; 
+2019-03-01 13:43:32.725 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - ==> Parameters: active(String)
+2019-03-01 13:43:32.730 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==    Columns: count(b.id)
+2019-03-01 13:43:32.731 [http-nio-8080-exec-4] TRACE c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==        Row: 0
+2019-03-01 13:43:32.731 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.get48BugCount - <==      Total: 1
+2019-03-01 13:51:16.974 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:51:16.975 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:51:16.984 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:51:16.985 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:51:16.986 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:51:16.994 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:51:16.995 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:51:16.995 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:51:17.003 [http-nio-8080-exec-8] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0
+2019-03-01 13:52:52.206 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:52:52.206 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:52:52.210 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:53:06.651 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:53:06.651 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:53:06.657 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:53:16.988 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:53:16.989 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:53:16.999 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:53:17.000 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:53:17.001 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:53:17.010 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:53:17.011 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:53:17.012 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:53:17.021 [http-nio-8080-exec-4] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0
+2019-03-01 13:53:58.972 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:53:58.973 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:53:58.982 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:53:58.983 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:53:58.984 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:53:58.992 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:53:58.994 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:53:58.995 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:53:59.000 [http-nio-8080-exec-5] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0
+2019-03-01 13:54:19.773 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) GROUP BY pd.id,pd.name 
+2019-03-01 13:54:19.774 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - ==> Parameters: 
+2019-03-01 13:54:19.783 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugBySystem - <==      Total: 0
+2019-03-01 13:54:19.784 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND b.type = "redev" GROUP BY pd.id,pd.name 
+2019-03-01 13:54:19.785 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - ==> Parameters: 
+2019-03-01 13:54:19.793 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByRedev - <==      Total: 0
+2019-03-01 13:54:19.794 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==>  Preparing: SELECT pd.name "name", count(b.id) "value", pd.id "key", pd.id systemId FROM zt_bug b LEFT JOIN zt_product pd ON b.product = pd.id LEFT JOIN zt_project pj ON b.project = pj.id WHERE 1=1 AND pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2)) AND TIMESTAMPDIFF( HOUR, b.openedDate, now() ) > 48 GROUP BY pd.id,pd.name 
+2019-03-01 13:54:19.794 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - ==> Parameters: 
+2019-03-01 13:54:19.803 [http-nio-8080-exec-1] DEBUG c.newtouch.buglifecycle.dao.HomeDao.getBugByOver48 - <==      Total: 0

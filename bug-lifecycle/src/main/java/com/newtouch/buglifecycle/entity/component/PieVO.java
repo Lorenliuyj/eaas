@@ -13,6 +13,8 @@ public class PieVO {
 
     private String key;
 
+    private String systemId;
+
     private String minTime;
 
     private String maxTime;
@@ -39,6 +41,14 @@ public class PieVO {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 
     public String getMinTime() {

@@ -39,14 +39,10 @@
         WHERE
             1=1
         <choose>
-            <when test="versionIds!=null and versionIds.size() == 1">
-                AND
-                c.id = #{versionIds[0]}
-            </when>
-            <when test="versionIds!=null and versionIds.size() > 1">
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
                 AND
                 c.id in
-                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
                     #{item}
                 </foreach>
             </when>
@@ -55,12 +51,13 @@
                 c.name like '%'||(select right(YEAR (CURDATE()),2))
             </otherwise>
         </choose>
-        <if test="systemId!=null and systemId!=''">
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
             AND  b.id = #{systemId}
         </if>
         GROUP BY
             c.id,b.id,e.title,e.id
         HAVING(bugSum &gt;5)
+        limit #{page.minNum},#{page.pageSize}
     </select>
 
 </mapper>

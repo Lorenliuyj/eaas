@@ -4,6 +4,7 @@ import com.newtouch.buglifecycle.dao.UnsolvedBugDetialDao;
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.UnsolvedBugDetialService;
+import com.newtouch.common.entity.base.Page;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,13 +16,17 @@ public class UnsolvedBugDetialServiceImpl implements UnsolvedBugDetialService {
     UnsolvedBugDetialDao unsolvedBugDetialDao;
 
     @Override
-    public List<UnsolvedBugDetialVO> findAll(SystemDTO systemVO) {
-        return unsolvedBugDetialDao.findAll(systemVO);
+    public Page<UnsolvedBugDetialVO> findAll(SystemDTO systemVO, Page page) {
+        page.init();
+        page.setList(unsolvedBugDetialDao.findAll(systemVO,page));
+        return page;
     }
 
     @Override
-    public List<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO) {
-        return unsolvedBugDetialDao.findBugDetail(systemVO);
+    public Page<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO,Page page) {
+        page.init();
+        page.setList(unsolvedBugDetialDao.findBugDetail(systemVO,page));
+        return page;
     }
 
 }

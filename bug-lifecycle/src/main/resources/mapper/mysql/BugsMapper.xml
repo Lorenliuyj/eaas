@@ -4,7 +4,7 @@
 
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-      select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+      select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
@@ -24,11 +24,7 @@
            and b.id = #{systemId}
         </if>
         <choose>
-            <when test="versionIds!=null and versionIds.size() == 1">
-                AND
-                c.id = #{versionIds[0]}
-            </when>
-            <when test="versionIds!=null and versionIds.size() > 1">
+            <when test="versionIds!=null and versionIds.size() > 0">
                 AND
                 c.id in
                 <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
@@ -45,7 +41,7 @@
     </select>
 
     <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-        select b.name as `system`,c.name as version, d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.resolvedBy = d.account
@@ -58,11 +54,7 @@
             and b.id = #{systemId}
         </if>
         <choose>
-            <when test="versionIds!=null and versionIds.size() == 1">
-                AND
-                c.id = #{versionIds[0]}
-            </when>
-            <when test="versionIds!=null and versionIds.size() > 1">
+            <when test="versionIds!=null and versionIds.size() > 0">
                 AND
                 c.id in
                 <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
@@ -119,11 +111,7 @@
         AND
         a.type = 'redev'
         <choose>
-            <when test="versionIds!=null and versionIds.size() == 1">
-                AND
-                c.id = #{versionIds[0]}
-            </when>
-            <when test="versionIds!=null and versionIds.size() > 1">
+            <when test="versionIds!=null and versionIds.size() > 0">
                 AND
                 c.id in
                 <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
