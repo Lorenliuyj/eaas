@@ -2,7 +2,6 @@ package com.newtouch.buglifecycle.controller;
 
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
-import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
 import com.newtouch.buglifecycle.service.DefectThanFiveService;

@@ -7,6 +7,7 @@
         <result column="name" jdbcType="VARCHAR"  property="name"/>
         <result column="value" jdbcType="VARCHAR" property="value"/>
         <result column="key" jdbcType="VARCHAR" property="key"/>
+        <result column="systemId" jdbcType="VARCHAR" property="systemId"/>
     </resultMap>
 
     <resultMap id="comboxVOMap" type="com.newtouch.buglifecycle.entity.component.ComboxVO">
@@ -15,7 +16,11 @@
     </resultMap>
 
     <select id="getVersionList" resultMap="comboxVOMap">
-        select id `value` ,`name` label from zt_project;
+        select id `value` ,`name` label from zt_project order by id DESC;
+    </select>
+
+    <select id="getSystemList" resultMap="comboxVOMap">
+        select id `value` ,`name` label from zt_product order by id DESC;
     </select>
 
     <sql id="zt_bugJoinTable">
@@ -47,15 +52,10 @@
             </when>
             <otherwise>
                 AND
-                pj.name like '%'||(select right(YEAR (CURDATE()),2))
+                pj.name like CONCAT('%' ,RIGHT (YEAR(CURDATE()), 2))
             </otherwise>
         </choose>
     </sql>
-
-    <select id="getSystemList" resultMap="comboxVOMap">
-        select id `value` ,`name` label from zt_product;
-    </select>
-
 
     <select id="getRedevBugCount" resultType="java.lang.Integer" >
         SELECT
@@ -94,7 +94,8 @@
         SELECT
         pd.name "name",
         count(b.id) "value",
-        pd.id "key"
+        pd.id "key",
+        pd.id systemId
         FROM
         <include refid="zt_bugJoinTable"/>
         GROUP BY
@@ -105,7 +106,8 @@
         SELECT
         pd.name "name",
         count(b.id) "value",
-        pd.id "key"
+        pd.id "key",
+        pd.id systemId
         FROM
         <include refid="zt_bugJoinTable"/>
         AND b.type = "redev"
@@ -117,7 +119,8 @@
         SELECT
         pd.name "name",
         count(b.id) "value",
-        pd.id "key"
+        pd.id "key",
+        pd.id systemId
         FROM
         <include refid="zt_bugJoinTable"/>
         AND TIMESTAMPDIFF(

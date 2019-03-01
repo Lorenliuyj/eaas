@@ -1,1 +1,1 @@
-{"dashBoardRedev":{"action":40,"warnning":50,"max":"500"},"dashBoard48Hour":{"action":70,"warnning":90,"max":"500"},"dashBoard24Hour":{"action":20,"warnning":40,"max":"500"}}
+{"dashBoardRedev":{"action":40,"warnning":50,"max":"60"},"dashBoard48Hour":{"action":"20","warnning":"40","max":"60"},"dashBoard24Hour":{"action":20,"warnning":40,"max":"60"}}
