@@ -9,7 +9,6 @@
 
 <script>
 import DefectDetail from "./DefectDetail";
-import {pieAjaxRequest} from "../../static/js/PieRequestCommon.js"
 export default {
   data() {
     return {
@@ -25,7 +24,7 @@ export default {
     DefectDetail
   },
   methods:{
-      loadPie:function(pieParameter,proName,proValue,status){
+      loadPie:function(pieParameter,proName,proValue,status,versionIds){
         var pieOptions = {
         title: {
           text: "",
@@ -46,10 +45,11 @@ export default {
                   fontSize: 12 //文字的字体大小
                 },
                 formatter:function(val){   //让series 中的文字进行换行
-                      return val.percent.toFixed(0)+"%\n"+val.name;
+                      return val.name+"\n"+"数量:"+val.value;
                     }
               }
             },
+            clockwise:false,
             // color: [ "#c23531", "#9c1515","#c71919"],
             data: [],
             labelLine: {
@@ -69,24 +69,32 @@ export default {
             //         shadowColor: 'rgba(0, 0, 0, 0.5)',
             //     }
             // },
+            tooltip:{
+              formatter: '数量:{c}<br />百分比:{d}'
+            }
           }
         ]
       };
       pieOptions.title.text = pieParameter.pieName;
+      debugger;
+      if(null == pieParameter.data || pieParameter.data.length == 0){
+        pieParameter.data = [{name:"无数据",value:0}]
+      }
       pieOptions.series[0].data = pieParameter.data;
       let pie = this.$echarts.init(this.$el);
       pie.proName = proName;
       pie.proValue = proValue;
       pie.status = status;
+      pie.versionIds = versionIds;
       pie.setOption(pieOptions);
       let _this = this;
       pie.on("click", function(params) {
-        debugger;
         var requestObject = {};
         requestObject.requestUrl = "/home/getDetailDataByPie";
         var obj = params.data;
         obj[this.proName] = this.proValue;
         obj.status = this.status;
+        obj.versionIds = this.versionIds;
         requestObject.requestObject = obj;
         //调用缺陷详细组件方法
         _this.$refs.defectDetail.loadDefectData(requestObject);

@@ -80,12 +80,12 @@
                 <Icon type="md-download" size="28" color="grey" class="float-right" @click="exportTableForRework('未解决返工缺陷明细')" />
             </p>
             <Table :columns="columnForRework" height="400" stripe :data="tableDataForRework" ref="tableForRework" size="small"></Table>
-            <Page :total="dataCountForRework" show-sizer show-total on-change="eventLoadTableForRework(pageNum)"/>
+            <Page :total="pageObjForRework.totalNum" :current="pageObjForRework.pageNum" :page-size="pageObjForRework.pageSize" show-sizer show-total @on-change="loadTableForReworkPage" @on-page-size-change="loadTableForReworkPageSize"/>
           </Card>
         </div>
       </div>
     </div>
-    <Modal v-model="showDefectDetail" title="缺陷明细列表" :mask-closable="false" width="1300">
+    <Modal v-model="showDefectDetail" :draggable="true" title="缺陷明细列表" :mask-closable="false" width="detailModalWidth">
       <DefectDetail ref="defectDetailRef" ></DefectDetail>
     </Modal>
   </div>
@@ -174,20 +174,24 @@ export default {
           key: "bugsNum"
         }
       ],
-      resolvedData: [],
-      count: 10,
+      //返工缺陷明细分页对象
+      pageObjForRework:{
+        pageNum:1,
+        pageSize:20,
+        totalNum:0,
+      },
       showDefectDetail:false,
       dataCountForRework:0,
+      detailModalWidth:0,
     };
   },
   props:{
-    version:{
-      type:String,
-      default:"",
+    versionIds:{
+      type:String
     }
   },
   watch:{
-    version:function(newV,oldV){
+    versionIds:function(newV,oldV){
       this.loadPageData();
     }
   },
@@ -196,13 +200,17 @@ export default {
     DefectDetail
   },
   created(){
-    
+    // 详情穿透弹窗的宽度根据当前屏幕来定
+
   },
   mounted(){
     //加载页面数据
     this.loadPageData();
   },
   methods:{
+    initModalWidth:function(){
+      this.detailModalWidth.width = document.body.clientWidth * 0.8;
+    },
     loadPageData:function(){
       // 加载所有系统下拉框
       this.loadSystem();
@@ -215,7 +223,7 @@ export default {
       let _this = this;
       //初始系统
       this.$fetch("home/getBaseData").then(response => {
-      _this.systemList = response.result.systemList;
+        _this.systemList = response.result.systemList;
       });
     },
     loadTables:function(){
@@ -229,8 +237,8 @@ export default {
     loadTableFor48UnDeal:function(){
       var reqObj = {};
       reqObj.unDeal = true;
-      reqObj.systemName = this.sysFrom48UnDeal;
-      reqObj.version = this.version;
+      reqObj.systemId = this.sysFrom48UnDeal;
+      reqObj.versionIds = this.versionIds;
       this.$fetch("/home/tableFor48UnDeal",reqObj).then(
         response =>{
           this.tableDataFor48unDeal = response.result;
@@ -241,8 +249,8 @@ export default {
     },
     loadTableForRank10:function(){
       var reqObj = {};
-      reqObj.systemName = this.sysFromRank10;
-      reqObj.version = this.version;
+      reqObj.systemId = this.sysFromRank10;
+      reqObj.versionIds = this.versionIds;
       reqObj.unDeal = true;
       this.$fetch("/home/tableForRank10",reqObj).then(
         response =>{
@@ -252,20 +260,30 @@ export default {
         }
       )
     },
-    loadTableForRework:function(pageNum,pageSize){
+    loadTableForRework:function(){
       var reqObj = {};
-      reqObj.systemName = this.sysFromRework;
-      reqObj.version = this.version;
+      reqObj.systemId = this.sysFromRework;
+      debugger;
+      reqObj.versionIds = this.versionIds;
       reqObj.unDeal = true;
-      reqObj.pageNum = pageNum;
-      reqObj.pageSize = pageSize;
-      this.$fetch("/home/tableDataForCQOver5",reqObj).then(
-        response =>{
-          this.tableDataForRework = response.result;
-        },function(){
+      reqObj.pageNum = this.pageObjForRework.pageNum;
+      reqObj.pageSize = this.pageObjForRework.pageSize;
+      // this.$fetch("/home/tableDataForUnsolveBug",reqObj).then(
+      //   response =>{
+      //     this.tableDataForRework = response.result;
+      //   },function(){
 
-        }
-      )
+      //   }
+      // )
+    },
+    //分页加载返工缺陷明细
+    loadTableForReworkPage:function(value){
+      this.pageObjForRework.pageNum = value;
+      this.loadTableForRework();
+    },
+    loadTableForReworkPageSize:function(value){
+      this.pageObjForRework.pageSize = value;
+      this.loadTableForRework();
     },
     // 超48小时未解决缺陷排名 表格穿透弹窗方法
     showDefectFrom48UnDeal:function(data,index){
@@ -273,8 +291,8 @@ export default {
       defectDetailData.requestUrl = "/home/tableFor48UnDealDetail";
       var reqParam = {};
       reqParam.account =  data.account;
-      reqParam.systemName =  this.sysFrom48UnDeal;
-      reqParam.version = this.version;
+      reqParam.systemId =  this.sysFrom48UnDeal;
+      reqParam.versionIds = this.versionIds;
       reqParam.undeal = true;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
@@ -285,8 +303,8 @@ export default {
       defectDetailData.requestUrl = "/home/tableForRank10Detail";
       var reqParam = {};
       reqParam.account =  data.account;
-      reqParam.systemName =  this.sysFromRank10;
-      reqParam.version = this.version;
+      reqParam.systemId =  this.sysFromRank10;
+      reqParam.versionIds = this.versionIds;
       reqParam.undeal = true;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
@@ -305,23 +323,25 @@ export default {
     loadPieForCommon:function(){
       let _this = this;
       var reqObj = {};
-      reqObj.version = this.version;
-      reqObj.undeal = true;
+      debugger;
+      reqObj.versionIds = this.versionIds;
+      reqObj.unDeal = true;
       this.$fetch("/home/getBugPercent",reqObj)
       .then(
         response =>{
+            debugger;
             var pieForSys = {};
             pieForSys.pieName = "未解决缺陷按系统占比";
             pieForSys.data = response.result.pieForSys;
             var pieForRework = {};
             pieForRework.pieName = "未解决返工缺陷按系统占比";
-            pieForRework.data = response.result.pieForSys;
+            pieForRework.data = response.result.pieForRework;
             var pieForOver48 = {};
             pieForOver48.pieName = "超过48小时未解决缺陷按系统占比";
-            pieForOver48.data = response.result.pieForSys;
-            _this.$refs.pieForSystem.loadPie(pieForSys,"","","active");
-            _this.$refs.pieForRework.loadPie(pieForRework,"type","redev","active");
-            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48","active");
+            pieForOver48.data = response.result.pieForOver48;
+            _this.$refs.pieForSystem.loadPie(pieForSys,"","","active",_this.versionIds);
+            _this.$refs.pieForRework.loadPie(pieForRework,"type","redev","active",_this.versionIds);
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48","active",_this.versionIds);
             },
             function(response) {
               // TODO
@@ -331,16 +351,20 @@ export default {
     loadPieForHours:function(){
       let _this = this;
       var reqObj = {};
-      reqObj.version = this.version;
-      reqObj.systemName = this.sysFromPie;
-      reqObj.undeal = true;
+      reqObj.versionIds = this.versionIds;
+      reqObj.systemId = this.sysFromPie;
+      reqObj.unDeal = true;
+      debugger;
       this.$fetch("/home/getBugPercentHour",reqObj)
       .then(
         response =>{
             var pieParameter = {};
             pieParameter.pieName = "未解决缺陷按时间占比";
             pieParameter.data = response.result;
-              _this.$refs.pieForHours.loadPie(pieParameter,"","","active");
+            for (let item of pieParameter.data){
+                item.systemId = _this.sysFromPie;
+            }
+              _this.$refs.pieForHours.loadPie(pieParameter,"","","active",_this.versionIds);
             },
             function(response) {
               // TODO
