@@ -152,7 +152,7 @@ public class HomeController {
 //    public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemName,
 //                                             @RequestParam(required=false)String version,
 //                                             @RequestParam(required=false)Boolean unDeal,
-//                                             @RequestParam(required=false)String account){
+//                                            @RequestParam(required=false)String account){
 //        SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
 //        systemVO.setAccount(account);
 //        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemVO);
@@ -186,14 +186,11 @@ public class HomeController {
      * @param unDeal
      * @return
      */
-//    @RequestMapping("/tableDataForCQOver5")
-//    public ResponseVO tableDataForCQOver5(@RequestParam(required=false)String systemId,
-//                              @RequestParam(required=false)String versionId,
-//                              @RequestParam(required=false)boolean unDeal) {
-//            SystemDTO systemVO = new SystemDTO(systemId,versionId,unDeal);
-//            List<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemVO);
-//            return ResponseUtil.successResponse(result);
-//    }
+    @RequestMapping("/tableDataForCQOver5")
+    public ResponseVO tableDataForCQOver5(SystemDTO systemDTO) {
+            List<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemDTO);
+            return ResponseUtil.successResponse(result);
+    }
 
     /**
      * 未解决返工缺陷列表
@@ -203,14 +200,11 @@ public class HomeController {
      * @param unDeal
      * @return
      */
-//    @RequestMapping("/tableDataForUnsolveBug")
-//    public ResponseVO tableDataForUnsolveBug(@RequestParam(required=false)String systemId,
-//                                          @RequestParam(required=false)String versionId,
-//                                          @RequestParam(required=false)boolean unDeal) {
-//            SystemDTO systemVO = new SystemDTO(systemId,versionId,unDeal);
-//            List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemVO);
-//            return ResponseUtil.successResponse(result);
-//    }
+    @RequestMapping("/tableDataForUnsolveBug")
+    public ResponseVO tableDataForUnsolveBug(SystemDTO systemDTO) {
+            List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemDTO);
+            return ResponseUtil.successResponse(result);
+    }
 
     /**
      * 缺陷超5个的cq单明细的具体详情
