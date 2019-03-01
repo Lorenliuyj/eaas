@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface UnsolvedBugDetialDao {
 
-    List<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO);
+    List<UnsolvedBugDetialVO> findBugDetail(@Param("systemDTO") SystemDTO systemDTO,@Param("page")Page page);
 
-    List<UnsolvedBugDetialVO> findBugDetailPage(@Param("systemVO") SystemDTO systemVO, @Param("page") Page page);
-    List<UnsolvedBugDetialVO> findAll(SystemDTO systemVO);
+    List<UnsolvedBugDetialVO> findBugDetailPage(@Param("systemDTO") SystemDTO systemDTO, @Param("page") Page page);
+    List<UnsolvedBugDetialVO> findAll(@Param("systemDTO") SystemDTO systemDTO,@Param("page")Page page);
 }

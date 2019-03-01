@@ -2,6 +2,7 @@ package com.newtouch.buglifecycle.controller;
 
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
 import com.newtouch.buglifecycle.service.DefectThanFiveService;
@@ -165,22 +166,19 @@ public class HomeController {
      * @return
      */
     @RequestMapping("/tableDataForCQOver5")
-    public ResponseVO tableDataForCQOver5(SystemDTO systemDTO) {
-            List<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemDTO);
+    public ResponseVO tableDataForCQOver5(SystemDTO systemDTO,Page page) {
+            Page<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemDTO,page);
             return ResponseUtil.successResponse(result);
     }
 
     /**
      * 未解决返工缺陷列表
      * js  js
-     * @param systemId
-     * @param versionId
-     * @param unDeal
      * @return
      */
     @RequestMapping("/tableDataForUnsolveBug")
-    public ResponseVO tableDataForUnsolveBug(SystemDTO systemDTO) {
-            List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemDTO);
+    public ResponseVO tableDataForUnsolveBug(SystemDTO systemDTO,Page page) {
+            Page<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemDTO,page);
             return ResponseUtil.successResponse(result);
     }
 
@@ -191,10 +189,10 @@ public class HomeController {
      * @return
      */
     @RequestMapping("/tableDataForCQOver5Detail")
-    public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id) {
+    public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id,Page page) {
         SystemDTO systemVO = new SystemDTO();
         systemVO.setStoryId(id);
-        List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findBugDetail(systemVO);
+        Page<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findBugDetail(systemVO,page);
         return ResponseUtil.successResponse(result);
     }
 }

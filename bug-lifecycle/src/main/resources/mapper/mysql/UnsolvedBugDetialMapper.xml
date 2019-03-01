@@ -51,14 +51,10 @@
         WHERE
         1=1
         <choose>
-            <when test="versionIds!=null and versionIds.size() == 1">
-                AND
-                c.id = #{versionIds[0]}
-            </when>
-            <when test="versionIds!=null and versionIds.size() > 1">
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
                 AND
                 c.id in
-                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
                     #{item}
                 </foreach>
             </when>
@@ -67,8 +63,8 @@
                 c.name like '%'||(select right(YEAR (CURDATE()),2))
             </otherwise>
         </choose>
-        <if test="systemId!=null and systemId!=''">
-            AND  b.id = #{systemId}
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
         </if>
         AND
         a.status = 'active'
@@ -114,9 +110,10 @@
             a.resolvedBy = f.account
         WHERE
             1=1
-        <if test="storyId!=null and storyId!=''">
+        <if test="systemDTO.storyId!=null and systemDTO.storyId!=''">
             AND a.story = #{storyId}
         </if>
+        limit #{page.minNum},#{page.pageSize}
     </select>
 
 
