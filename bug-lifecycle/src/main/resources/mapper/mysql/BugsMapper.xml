@@ -24,9 +24,16 @@
            and b.id = #{systemId}
         </if>
         <choose>
-            <when test="versionId!=null and versionId!=''">
+            <when test="versionIds!=null and versionIds.size() == 1">
                 AND
-                c.id = #{versionId}
+                c.id = #{versionIds[0]}
+            </when>
+            <when test="versionIds!=null and versionIds.size() > 1">
+                AND
+                c.id in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
             </when>
             <otherwise>
                 AND
@@ -51,9 +58,16 @@
             and b.id = #{systemId}
         </if>
         <choose>
-            <when test="versionId!=null and versionId!=''">
+            <when test="versionIds!=null and versionIds.size() == 1">
                 AND
-                c.id = #{versionId}
+                c.id = #{versionIds[0]}
+            </when>
+            <when test="versionIds!=null and versionIds.size() > 1">
+                AND
+                c.id in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
             </when>
             <otherwise>
                 AND
@@ -105,9 +119,16 @@
         AND
         a.type = 'redev'
         <choose>
-            <when test="versionId!=null and versionId!=''">
+            <when test="versionIds!=null and versionIds.size() == 1">
                 AND
-                c.id = #{versionId}
+                c.id = #{versionIds[0]}
+            </when>
+            <when test="versionIds!=null and versionIds.size() > 1">
+                AND
+                c.id in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
             </when>
             <otherwise>
                 AND

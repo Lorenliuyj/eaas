@@ -9,12 +9,16 @@
           <span style="font-size: 15px;color:darkgrey">版本:</span>
           <Select
             multiple
-            v-model="versionIds"
+            v-model="versionId"
             style="width:260px"
             clearable
             @on-change="changeVersionOrSys(1)"
           >
-            <Option v-for="versions in versionList" :value="versions.value" :key="versions.value">{{ versions.label }}</Option>
+            <Option
+              v-for="versions in versionList"
+              :value="versions.value"
+              :key="versions.value"
+            >{{ versions.label }}</Option>
           </Select>
         </div>
       </Header>
@@ -33,7 +37,11 @@
                 @on-change="changeVersionOrSys(2)"
                 @click.native.stop="() => {}"
               >
-                <Option v-for="sys in systemList" :value="sys.value" :key="sys.value">{{ sys.label }}</Option>
+                <Option
+                  v-for="sys in systemList"
+                  :value="sys.value"
+                  :key="sys.value"
+                >{{ sys.label }}</Option>
               </Select>
               <!-- <Icon type="md-settings" @click="showThreshold = true" v-on:click.native.stop="() => {}" size="24"/> -->
               <Icon
@@ -101,10 +109,10 @@ export default {
       showThreshold: false,
       button1: "我的测试",
       versionList: [],
-      versionIds: [],
+      versionIds: "",
+      versionId: [],
       systemList: [],
       systemId: "",
-      version:"",//待删除
       dashParameter0: {},
       dashParameter1: {},
       dashParameter2: {}
@@ -120,10 +128,12 @@ export default {
     settingThenShow() {
       var result = this.$refs.thresholdSetting.getThresholdSettings();
       let _this = this;
-      this.$fetch("home/setDashBoardThreshold", {json:JSON.stringify(result)}).then(resp => {
-      _this.$refs.loadDashBoard0.reloadDashBoard(result.dashBoardRedev);
-      _this.$refs.loadDashBoard1.reloadDashBoard(result.dashBoard48Hour);
-      _this.$refs.loadDashBoard2.reloadDashBoard(result.dashBoard24Hour);
+      this.$fetch("home/setDashBoardThreshold", {
+        json: JSON.stringify(result)
+      }).then(resp => {
+        _this.$refs.loadDashBoard0.reloadDashBoard(result.dashBoardRedev);
+        _this.$refs.loadDashBoard1.reloadDashBoard(result.dashBoard48Hour);
+        _this.$refs.loadDashBoard2.reloadDashBoard(result.dashBoard24Hour);
       });
     },
     /**
@@ -136,7 +146,7 @@ export default {
       this.$fetch(url, parameters)
         .then(response => {
           response.result.dashBoardRedev.title = "返工缺陷仪表盘";
-          //初始化阀值设置参数 
+          //初始化阀值设置参数
           _this.$refs.thresholdSetting.initDashBoardSetting(response.result);
           _this.$refs.loadDashBoard0.loadDashBoard(
             response.result.dashBoardRedev
@@ -157,12 +167,28 @@ export default {
     //版本或者系统更改时触发事件
     changeVersionOrSys(type) {
       if (type === 1) {
-        this.updateDashBorad("/home/dashBoardData", { "versionIds": this.versionIds,"systemId":this.systemId });
+        //更改版本
+        this.versionIds = "";
+        for (var i = 0; i < this.versionId.length; i++) {
+          if (i == this.versionId.length - 1) {
+            this.versionIds += this.versionId[i];
+          } else {
+            this.versionIds += this.versionId[i] + ",";
+          }
+        }
+        this.updateDashBorad("/home/dashBoardData", {
+          versionIds: this.versionIds,
+          systemId: this.systemId
+        });
         this.jumpToPage();
-        console.log(this.versionIds);
+        console.log("versionIds==" + this.versionIds);
       } else if (type === 2) {
-        console.log(this.systemId);
-        this.updateDashBorad("/home/dashBoardData", { "versionIds": this.versionIds,"systemId":this.systemId });
+        //更改系统
+        console.log("systemId ==" + this.systemId);
+        this.updateDashBorad("/home/dashBoardData", {
+          versionIds: this.versionIds,
+          systemId: this.systemId
+        });
       }
     },
     //跳转页面
@@ -185,13 +211,12 @@ export default {
       }
     }
   },
-
   created() {
     let _this = this;
     //初始化版本和系统
     this.$fetch("home/getBaseData").then(response => {
-    _this.versionList = response.result.versionList;
-    _this.systemList = response.result.systemList;
+      _this.versionList = response.result.versionList;
+      _this.systemList = response.result.systemList;
     });
     //初始化仪表盘
     this.updateDashBorad("/home/dashBoardData", {});

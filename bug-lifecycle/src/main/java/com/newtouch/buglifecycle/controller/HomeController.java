@@ -141,58 +141,34 @@ public class HomeController {
 
     /**
      * 48小時未解决的bug详情
-     * @param systemName
-     * @param version
-     * @param unDeal
-     * @param account
      * @return
      */
-//    @GetMapping(value = "/tableFor48UnDealDetail")
-//    public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemName,
-//                                             @RequestParam(required=false)String version,
-//                                             @RequestParam(required=false)Boolean unDeal,
-//                                             @RequestParam(required=false)String account){
-//        SystemDTO systemVO = new SystemDTO(systemName,version,unDeal);
-//        systemVO.setAccount(account);
-//        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemVO);
-//        return ResponseUtil.successResponse(list);
-//    }
+    @GetMapping(value = "/tableFor48UnDealDetail")
+    public ResponseVO tableFor48UnDealDetail(SystemDTO systemDTO){
+        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemDTO);
+        return ResponseUtil.successResponse(list);
+    }
 
     /**
      * 未解决缺陷排名前十详情
-     * @param systemId
-     * @param versionId
-     * @param account
      * @return
      */
-//    @GetMapping(value = "/tableForRank10Detail")
-//    public ResponseVO tableFor48UnDealDetail(@RequestParam(required=false)String systemId,
-//                                             @RequestParam(required=false)String versionId,
-//                                             @RequestParam(required=false)String account){
-//        SystemDTO systemVO = new SystemDTO();
-//        systemVO.setSystemId(systemId);
-//        systemVO.setVersionId(versionId);
-//        systemVO.setAccount(account);
-//        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemVO);
-//        return ResponseUtil.successResponse(list);
-//    }
+    @GetMapping(value = "/tableForRank10Detail")
+    public ResponseVO tableForRank10Detail(SystemDTO systemDTO){
+        List<UnsolvedBugDetialVO> list = bugsService.tableForUnDealDetail(systemDTO);
+        return ResponseUtil.successResponse(list);
+    }
 
     /**
      * 缺陷超5个的cq单明细
      * js  js
-     * @param systemId
-     * @param versionId
-     * @param unDeal
      * @return
      */
-//    @RequestMapping("/tableDataForCQOver5")
-//    public ResponseVO tableDataForCQOver5(@RequestParam(required=false)String systemId,
-//                              @RequestParam(required=false)String versionId,
-//                              @RequestParam(required=false)boolean unDeal) {
-//            SystemDTO systemVO = new SystemDTO(systemId,versionId,unDeal);
-//            List<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemVO);
-//            return ResponseUtil.successResponse(result);
-//    }
+    @RequestMapping("/tableDataForCQOver5")
+    public ResponseVO tableDataForCQOver5(SystemDTO systemDTO) {
+            List<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemDTO);
+            return ResponseUtil.successResponse(result);
+    }
 
     /**
      * 未解决返工缺陷列表
@@ -202,14 +178,11 @@ public class HomeController {
      * @param unDeal
      * @return
      */
-//    @RequestMapping("/tableDataForUnsolveBug")
-//    public ResponseVO tableDataForUnsolveBug(@RequestParam(required=false)String systemId,
-//                                          @RequestParam(required=false)String versionId,
-//                                          @RequestParam(required=false)boolean unDeal) {
-//            SystemDTO systemVO = new SystemDTO(systemId,versionId,unDeal);
-//            List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemVO);
-//            return ResponseUtil.successResponse(result);
-//    }
+    @RequestMapping("/tableDataForUnsolveBug")
+    public ResponseVO tableDataForUnsolveBug(SystemDTO systemDTO) {
+            List<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemDTO);
+            return ResponseUtil.successResponse(result);
+    }
 
     /**
      * 缺陷超5个的cq单明细的具体详情

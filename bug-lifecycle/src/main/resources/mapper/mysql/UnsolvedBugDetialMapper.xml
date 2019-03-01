@@ -51,9 +51,16 @@
         WHERE
         1=1
         <choose>
-            <when test="versionId!=null and versionId!=''">
+            <when test="versionIds!=null and versionIds.size() == 1">
                 AND
-                c.id = #{version}
+                c.id = #{versionIds[0]}
+            </when>
+            <when test="versionIds!=null and versionIds.size() > 1">
+                AND
+                c.id in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
             </when>
             <otherwise>
                 AND
