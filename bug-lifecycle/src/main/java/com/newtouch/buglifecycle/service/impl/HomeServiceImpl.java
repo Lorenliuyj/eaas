@@ -10,6 +10,7 @@ import com.newtouch.buglifecycle.entity.home.HomeDashBoardVO;
 import com.newtouch.buglifecycle.entity.home.HomePieVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.HomeService;
+import com.newtouch.common.entity.base.Page;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +42,11 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public HomeDashBoardVO getHomeDashBoardData(String system, String version) {
-        int redevCount = homeDao.getRedevBugCount(system, version,"active");
-        int unsolve24Hour = homeDao.get24BugCount(system, version,"active");
-        int unsolve48Hour = homeDao.get48BugCount(system, version,"active");
+    public HomeDashBoardVO getHomeDashBoardData(SystemDTO systemDTO) {
+        systemDTO.setStatus("active");
+        int redevCount = homeDao.getRedevBugCount(systemDTO);
+        int unsolve24Hour = homeDao.get24BugCount(systemDTO);
+        int unsolve48Hour = homeDao.get48BugCount(systemDTO);
 
         HomeDashBoardVO vo = getDashBoardThreshold();
         vo.getDashBoardRedev().setCurrentValue(redevCount);
@@ -72,17 +74,19 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public HomePieVO getUnsolvedPie(String system, String version) {
+    public HomePieVO getUnsolvedPie(SystemDTO systemDTO) {
+        systemDTO.setStatus("active");
         HomePieVO homePieVO = new HomePieVO();
-        homePieVO.setPieForSys(homeDao.getBugBySystem(system, version,"active"));
-        homePieVO.setPieForRework(homeDao.getBugByRedev(system, version,"active"));
-        homePieVO.setPieForOver48(homeDao.getBugByOver48(system, version,"active"));
+        homePieVO.setPieForSys(homeDao.getBugBySystem(systemDTO));
+        homePieVO.setPieForRework(homeDao.getBugByRedev(systemDTO));
+        homePieVO.setPieForOver48(homeDao.getBugByOver48(systemDTO));
         return homePieVO;
     }
 
     @Override
-    public List<PieVO> getUnsolvedPieByHour(String system, String version) {
-        List<PieVO> list = homeDao.getBugByHour(system, version,"active");
+    public List<PieVO> getUnsolvedPieByHour(SystemDTO systemDTO) {
+        systemDTO.setStatus("active");
+        List<PieVO> list = homeDao.getBugByHour(systemDTO);
         for(PieVO vo:list){
             switch(vo.getKey()){
                 case "lt24":
@@ -101,22 +105,39 @@ public class HomeServiceImpl implements HomeService {
     }
 
     @Override
-    public HomePieVO getBugPercent(String system, String version) {
+    public HomePieVO getBugPercent(SystemDTO systemDTO) {
         HomePieVO homePieVO = new HomePieVO();
-        homePieVO.setPieForSys(homeDao.getBugBySystem(system, version,null));
-        homePieVO.setPieForRework(homeDao.getBugByRedev(system, version,null));
-        homePieVO.setPieForOver48(homeDao.getBugByOver48(system, version,null));
+        homePieVO.setPieForSys(homeDao.getBugBySystem(systemDTO));
+        homePieVO.setPieForRework(homeDao.getBugByRedev(systemDTO));
+        homePieVO.setPieForOver48(homeDao.getBugByOver48(systemDTO));
         return homePieVO;
     }
 
     @Override
-    public List<PieVO> getBugPercentByHour(String system, String version) {
-        return homeDao.getBugByHour(system, version,null);
+    public List<PieVO> getBugPercentByHour(SystemDTO systemDTO) {
+        List<PieVO> list = homeDao.getBugByHour(systemDTO);
+        for(PieVO vo:list){
+            switch(vo.getKey()){
+                case "lt24":
+                    vo.setMaxTime("24");
+                    break;
+                case "gt48":
+                    vo.setMinTime("48");
+                    break;
+                default:
+                    vo.setMaxTime("48");
+                    vo.setMinTime("24");
+                    break;
+            }
+        }
+        return list;
     }
 
     @Override
-    public List<UnsolvedBugDetialVO> getDetailDataByPie(SystemDTO systemDTO) {
-        return unsolvedBugDetialDao.findBugDetail(systemDTO);
+    public Page<UnsolvedBugDetialVO> getDetailDataByPie(SystemDTO systemDTO, Page page) {
+        page.init();
+        page.setList(unsolvedBugDetialDao.findBugDetailPage(systemDTO,page));
+        return page;
     }
 
 

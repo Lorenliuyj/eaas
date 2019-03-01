@@ -1,5 +1,6 @@
 package com.newtouch.buglifecycle.dao;
 
+import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.component.ComboxVO;
 import com.newtouch.buglifecycle.entity.component.PieVO;
 import org.apache.ibatis.annotations.Param;
@@ -17,17 +18,17 @@ public interface HomeDao {
 
     List<ComboxVO> getVersionList();
 
-    int getRedevBugCount(@Param("systemName") String systemName,@Param("version") String version,@Param("status") String status);
+    int getRedevBugCount(SystemDTO systemDTO);
 
-    int get24BugCount(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    int get24BugCount(SystemDTO systemDTO);
 
-    int get48BugCount(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    int get48BugCount(SystemDTO systemDTO);
 
-    List<PieVO> getBugBySystem(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    List<PieVO> getBugBySystem(SystemDTO systemDTO);
 
-    List<PieVO> getBugByRedev(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    List<PieVO> getBugByRedev(SystemDTO systemDTO);
 
-    List<PieVO> getBugByOver48(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    List<PieVO> getBugByOver48(SystemDTO systemDTO);
 
-    List<PieVO> getBugByHour(@Param("systemName") String systemName, @Param("version") String version, @Param("status") String status);
+    List<PieVO> getBugByHour(SystemDTO systemDTO);
 }
