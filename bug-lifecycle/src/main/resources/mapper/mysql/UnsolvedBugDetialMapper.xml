@@ -112,4 +112,48 @@
         </if>
     </select>
 
+
+
+    <select id="findBugDetailPage" resultMap="BaseResultMap">
+        SELECT
+        a.id as id,
+        b.name as projectName,
+        TIMESTAMPDIFF(hour,a.openedDate,now()) as putHours,
+        a.type as type,
+        a.title as title,
+        d.realname as openedBy,
+        e.realname as assignedTo,
+        f.realname as resolvedBy,
+        a.resolution as resolution
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <if test="systemVO.storyId!=null and systemVO.storyId!=''">
+            AND a.story = #{systemVO.storyId}
+        </if>
+        limit #{page.minNum},#{page.pageSize}
+
+    </select>
+
 </mapper>

@@ -14,7 +14,7 @@
         <result column="value" jdbcType="VARCHAR" property="value"/>
     </resultMap>
 
-    <select id="getSystemList" resultMap="comboxVOMap">
+    <select id="getVersionList" resultMap="comboxVOMap">
         select id `value` ,`name` label from zt_project;
     </select>
 
@@ -30,10 +30,20 @@
         <if test="systemName!= null and systemName != ''">
             AND pd. NAME = #{systemName}
         </if>
+        <if test="systemId!= null and systemId != ''">
+            AND pd. ID = #{systemId}
+        </if>
         <choose>
-            <when test="version!=null and version!=''">
+            <when test="versionIds!=null and versionIds.size() == 1">
                 AND
-                pj.name = #{version}
+                pj.ID = #{versionIds[0]}
+            </when>
+            <when test="versionIds!=null and versionIds.size() > 1">
+                AND
+                pj.ID in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
             </when>
             <otherwise>
                 AND
@@ -42,7 +52,7 @@
         </choose>
     </sql>
 
-    <select id="getVersionList" resultMap="comboxVOMap">
+    <select id="getSystemList" resultMap="comboxVOMap">
         select id `value` ,`name` label from zt_product;
     </select>
 

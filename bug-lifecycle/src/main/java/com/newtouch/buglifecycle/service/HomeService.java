@@ -7,6 +7,7 @@ import com.newtouch.buglifecycle.entity.home.HomeBaseDataVO;
 import com.newtouch.buglifecycle.entity.home.HomeDashBoardVO;
 import com.newtouch.buglifecycle.entity.home.HomePieVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
+import com.newtouch.common.entity.base.Page;
 
 import java.util.List;
 
@@ -18,17 +19,17 @@ public interface HomeService {
 
     HomeBaseDataVO getBaseData();
 
-    HomeDashBoardVO getHomeDashBoardData(String systemName, String version);
+    HomeDashBoardVO getHomeDashBoardData(SystemDTO systemDTO);
 
     void setDashBoardThreshold(String json);
 
-    HomePieVO getUnsolvedPie(String systemName, String version);
+    HomePieVO getUnsolvedPie(SystemDTO systemDTO);
 
-    List<PieVO> getUnsolvedPieByHour(String systemName, String version);
+    List<PieVO> getUnsolvedPieByHour(SystemDTO systemDTO);
 
-    HomePieVO getBugPercent(String systemName, String version);
+    HomePieVO getBugPercent(SystemDTO systemDTO);
 
-    List<PieVO> getBugPercentByHour(String systemName, String version);
+    List<PieVO> getBugPercentByHour(SystemDTO systemDTO);
 
-    List<UnsolvedBugDetialVO> getDetailDataByPie(SystemDTO systemDTO);
+    Page<UnsolvedBugDetialVO> getDetailDataByPie(SystemDTO systemDTO,Page page);
 }

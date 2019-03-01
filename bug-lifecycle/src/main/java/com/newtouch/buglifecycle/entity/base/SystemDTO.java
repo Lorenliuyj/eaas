@@ -1,5 +1,7 @@
 package com.newtouch.buglifecycle.entity.base;
 
+import java.util.List;
+
 /**
  * @author lgyu
  * @date 2019/2/21 16:54
@@ -7,11 +9,11 @@ package com.newtouch.buglifecycle.entity.base;
 public class SystemDTO {
 
     /**系统ID**/
-    private  String systemId;
+    private String systemId;
     /**系统名称**/
     private  String systemName;
     /**版本号ID**/
-    private String versionId;
+    private List<String> versionIds;
     /**版本号**/
     private String version;
     /**用户**/
@@ -31,18 +33,12 @@ public class SystemDTO {
     public SystemDTO() {
     }
 
-    public SystemDTO(String systemId, String versionId, Boolean unDeal) {
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
         this.systemId = systemId;
-        this.versionId = versionId;
-        this.unDeal = unDeal;
-    }
-
-    public String getStoryId() {
-        return storyId;
-    }
-
-    public void setStoryId(String storyId) {
-        this.storyId = storyId;
     }
 
     public String getSystemName() {
@@ -51,6 +47,14 @@ public class SystemDTO {
 
     public void setSystemName(String systemName) {
         this.systemName = systemName;
+    }
+
+    public List<String> getVersionIds() {
+        return versionIds;
+    }
+
+    public void setVersionIds(List<String> versionIds) {
+        this.versionIds = versionIds;
     }
 
     public String getVersion() {
@@ -75,6 +79,14 @@ public class SystemDTO {
 
     public void setUnDeal(Boolean unDeal) {
         this.unDeal = unDeal;
+    }
+
+    public String getStoryId() {
+        return storyId;
+    }
+
+    public void setStoryId(String storyId) {
+        this.storyId = storyId;
     }
 
     public String getStatus() {
@@ -107,21 +119,5 @@ public class SystemDTO {
 
     public void setMaxTime(String maxTime) {
         this.maxTime = maxTime;
-    }
-
-    public String getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(String versionId) {
-        this.versionId = versionId;
-    }
-
-    public String getSystemId() {
-        return systemId;
-    }
-
-    public void setSystemId(String systemId) {
-        this.systemId = systemId;
     }
 }

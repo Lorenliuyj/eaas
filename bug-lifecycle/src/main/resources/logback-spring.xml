@@ -95,11 +95,11 @@
     <!--开发环境:打印控制台-->
     <springProfile name="dev">
         <root>
-            <level value="INFO"/>
+            <level value="TRACE"/>
             <!--<appender-ref ref="CONSOLE" />-->
             <!--<appender-ref ref="ALL" />-->
         </root>
-        <logger name="com.newtouch" level="debug">
+        <logger name="com.newtouch" level="TRACE">
             <appender-ref ref="ALL" />
             <appender-ref ref="CONSOLE" />
         </logger>

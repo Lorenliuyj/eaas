@@ -36,7 +36,7 @@ public class Page<T> {
     public Page(int pageNum, int pageSize) {
         this.pageNum = pageNum<1?1:pageNum;
         this.pageSize = pageSize<=0?PAGE_SIZE_DEFAULT:pageSize;
-        this.minNum = pageNum*(pageSize-1);
+        this.minNum = pageSize*(pageNum-1);
     }
 
     public int getPageNum() {
@@ -77,5 +77,11 @@ public class Page<T> {
 
     public void setList(List<T> list) {
         this.list = list;
+    }
+
+    public void init() {
+        pageNum = pageNum<1?1:pageNum;
+        pageSize = pageSize<=20?PAGE_SIZE_DEFAULT:pageSize;
+        minNum = pageSize*(pageNum-1);
     }
 }
