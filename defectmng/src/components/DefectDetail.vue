@@ -1,25 +1,20 @@
 <template>
   <div style="width:100%;height:100%">
     <Table :loading="loading" :columns="columns" height="500" :data="data" stripe ref="table" size="small" :no-data-text="nodatatext"></Table>
+    <Page @on-change="loadPage" @on-page-size-change="loadPageSize" :total="pageObjForDetail.totalNum" :current="pageObjForDetail.pageNum" :page-size="pageObjForDetail.pageSize" show-sizer show-total/>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    defectDetailData: {
-      type: Object,
-      validator: function(defectDetailData) {
-        return true;
-      },
-      default: function() {
-        return null;
-      },
-      require: true
-    }
-  },
   data() {
     return {
+      //明细分页对象
+      pageObjForDetail:{
+        pageNum:1,
+        pageSize:20,
+        totalNum:0,
+      },
       loading:false,
       nodatatext:"暂无数据",
       columns: [
@@ -71,21 +66,49 @@ export default {
           tooltip:true
         }
       ],
-      data: []
+      data: [],
+      reqObj:{}
     };
   },
   created() {
   },
   methods:{
+      //分页加载
+      loadPage:function(value){
+        debugger;
+        this.pageObjForDetail.pageNum = value;
+        this.fetchData(this.reqObj);
+      },
+      //分页加载
+      loadPageSize:function(value){
+        debugger;
+        this.pageObjForDetail.pageSize = value;
+        this.fetchData(this.reqObj);
+      },
       loadDefectData(defectDetailData){
+        // 每次从外部加载详情  先重置分页对象
+        this.resetPageObj();
         this.loading = true;
+        //获取查询结果
+        this.fetchData(defectDetailData);
+      },
+      resetPageObj:function(){
+        this.pageObjForDetail.pageNum = 1;
+        this.pageObjForDetail.pageSize = 20;
+        this.pageObjForDetail.totalNum = 0;
+      },
+      fetchData:function(defectDetailData){
+        debugger;
         let _this = this;
         _this.data = [];
-          //发起后台请求  返回查询结果
-        this.$fetch(defectDetailData.requestUrl,defectDetailData.requestObject)
+        this.reqObj = defectDetailData.requestObject;
+        this.reqObj.pageNum = this.pageObjForDetail.pageNum;
+        this.reqObj.pageSize = this.pageObjForDetail.pageSize;
+        this.$fetch(defectDetailData.requestUrl,this.reqObj)
         .then(
             response =>{
-              _this.data = response.result;
+              _this.data = response.result.list;
+              _this.pageObjForDetail.totalNum = response.result.totalNum;
               _this.loading = false;
               _this.nodatatext="暂无数据";
             },
