@@ -268,13 +268,13 @@ export default {
       reqObj.unDeal = true;
       reqObj.pageNum = this.pageObjForRework.pageNum;
       reqObj.pageSize = this.pageObjForRework.pageSize;
-      // this.$fetch("/home/tableDataForUnsolveBug",reqObj).then(
-      //   response =>{
-      //     this.tableDataForRework = response.result;
-      //   },function(){
+      this.$fetch("/home/tableDataForUnsolveBug",reqObj).then(
+        response =>{
+          this.tableDataForRework = response.result;
+        },function(){
 
-      //   }
-      // )
+        }
+      )
     },
     //分页加载返工缺陷明细
     loadTableForReworkPage:function(value){

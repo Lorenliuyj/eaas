@@ -170,12 +170,17 @@ export default {
         //更改版本
         this.versionIds = "";
         for (var i = 0; i < this.versionId.length; i++) {
+          if(this.versionId.length>1){
           if (i == this.versionId.length - 1) {
             this.versionIds += this.versionId[i];
           } else {
             this.versionIds += this.versionId[i] + ",";
           }
+          }
         }
+        debugger;
+        let expireDays = 1000 * 60 * 60 ;
+        this.$setCookie('versionIds',this.versionIds,expireDays); //设置Cookie
         this.updateDashBorad("/home/dashBoardData", {
           versionIds: this.versionIds,
           systemId: this.systemId
@@ -218,6 +223,13 @@ export default {
       _this.versionList = response.result.versionList;
       _this.systemList = response.result.systemList;
     });
+    //获取cookie
+    if(this.$getCookie('versionIds')){
+      let str = this.$getCookie('versionIds');
+      let temp = str.replace(/\%2C/g,",");
+      this.versionIds = temp;
+      this.versionId = str.split(/\%2C/g);
+    }
     //初始化仪表盘
     this.updateDashBorad("/home/dashBoardData", {});
   }
