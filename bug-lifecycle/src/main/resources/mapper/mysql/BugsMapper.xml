@@ -27,7 +27,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.account!=null and systemDTO.account!=''">
@@ -57,7 +57,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.account!=null and systemDTO.account!=''">
@@ -96,7 +96,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
             </otherwise>
         </choose>
         group by d.account
@@ -131,7 +131,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
             </otherwise>
         </choose>
         group by d.account
