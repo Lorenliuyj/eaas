@@ -10,7 +10,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
@@ -35,9 +36,14 @@
     </sql>
 
     <sql id="10Id">
-        <if test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
@@ -73,7 +79,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemId !=null and systemId !=''">
@@ -103,9 +110,14 @@
         left join zt_user d on a.assignedTo = d.account
         where
         1=1
-        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
