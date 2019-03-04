@@ -19,13 +19,20 @@ public class UnsolvedBugDetialServiceImpl implements UnsolvedBugDetialService {
     public Page<UnsolvedBugDetialVO> findAll(SystemDTO systemVO, Page page) {
         page.init();
         page.setList(unsolvedBugDetialDao.findAll(systemVO,page));
+        page.setTotalNum(unsolvedBugDetialDao.findAllTotal(systemVO));
         return page;
     }
 
     @Override
     public Page<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO,Page page) {
         page.init();
-        page.setList(unsolvedBugDetialDao.findBugDetail(systemVO,page));
+        if(!"".equals(systemVO.getStoryId())) {
+            page.setList(unsolvedBugDetialDao.findBugDetail(systemVO,page));
+            page.setTotalNum(unsolvedBugDetialDao.findBugDetailTotal(systemVO));
+        }else {
+            page.setList(null);
+            page.setTotalNum(0);
+        }
         return page;
     }
 

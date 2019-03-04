@@ -60,7 +60,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
@@ -73,7 +73,58 @@
         ORDER BY
         id
         DESC
+        limit #{page.minNum},#{page.pageSize}
     </select>
+
+    <select id="findAllTotal" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+        AND
+        a.status = 'active'
+        AND
+        a.type = 'redev'
+    </select>
+
 
     <select id="findBugDetail" resultMap="BaseResultMap">
         SELECT
@@ -113,9 +164,72 @@
         <if test="systemDTO.storyId!=null and systemDTO.storyId!=''">
             AND a.story = #{systemDTO.storyId}
         </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
         limit #{page.minNum},#{page.pageSize}
     </select>
 
+    <select id="findBugDetailTotal" resultType="java.lang.Integer">
+        SELECT
+          COUNT(*)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <if test="systemDTO.storyId!=null and systemDTO.storyId!=''">
+            AND a.story = #{systemDTO.storyId}
+        </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+    </select>
 
 
     <select id="findBugDetailPage" resultMap="BaseResultMap">
@@ -155,6 +269,22 @@
         1=1
         <if test="systemVO.storyId!=null and systemVO.storyId!=''">
             AND a.story = #{systemVO.storyId}
+        </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
         </if>
         limit #{page.minNum},#{page.pageSize}
 
