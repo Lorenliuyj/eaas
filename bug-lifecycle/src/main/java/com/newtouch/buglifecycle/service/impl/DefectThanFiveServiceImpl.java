@@ -20,6 +20,7 @@ public class DefectThanFiveServiceImpl implements DefectThanFiveService {
     public Page<DefectThanFiveVO> findThan5Bug(SystemDTO systemVO, Page page) {
         page.init();
         page.setList(defectThanFiveDao.findThan5Bug(systemVO,page));
+        page.setTotalNum(defectThanFiveDao.findThan5BugTotal(systemVO));
         return page;
     }
 

@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface DefectThanFiveDao {
     List<DefectThanFiveVO> findThan5Bug(@Param("systemDTO") SystemDTO systemDTO,@Param("page")Page page);
+    int findThan5BugTotal(@Param("systemDTO") SystemDTO systemDTO);
 }

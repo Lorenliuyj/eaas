@@ -2,55 +2,81 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newtouch.buglifecycle.dao.BugsDao">
 
-
-    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-      select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
-        left join zt_product b on a.product = b.id
-        left join zt_project c on a.project = c.id
-        left join zt_user d on a.resolvedBy = d.account
-        where
-         1=1
+    <sql id="48Id">
         <choose>
-        <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-            and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
-            and a.status = 'active'
-            and a.type='codeerror'
-        </when>
-        <otherwise>
-            and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
-        </otherwise>
+            <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
+                and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+                and a.status = 'active'
+                and a.type='codeerror'
+            </when>
+            <otherwise>
+                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+            </otherwise>
         </choose>
-        <if test="systemId !=null">
-           and b.id = #{systemId}
+        <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
+            and b.id = #{systemDTO.systemId}
         </if>
         <choose>
-            <when test="versionIds!=null and versionIds.size() > 0">
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
                 AND
                 c.id in
-                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
                     #{item}
                 </foreach>
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
-        group by d.account
-        order by count(1) desc limit 10;
-    </select>
+        <if test="systemDTO.account!=null and systemDTO.account!=''">
+            AND e.account = #{systemDTO.account}
+        </if>
+    </sql>
 
-    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
-        left join zt_product b on a.product = b.id
-        left join zt_project c on a.project = c.id
-        left join zt_user d on a.resolvedBy = d.account
-        where
-        1=1
-        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+    <sql id="10Id">
+        <if test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
             and a.status = 'active'
         </if>
-        <if test="systemId !=null">
+        <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
+            and b.id = #{systemDTO.systemId}
+        </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+            </otherwise>
+        </choose>
+        <if test="systemDTO.account!=null and systemDTO.account!=''">
+            AND e.account = #{systemDTO.account}
+        </if>
+    </sql>
+
+    <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+      select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        left join zt_product b on a.product = b.id
+        left join zt_project c on a.project = c.id
+        left join zt_user d on a.assignedTo = d.account
+        where
+         1=1
+        <choose>
+            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+                and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+                and a.status = 'active'
+                and a.type='codeerror'
+            </when>
+            <otherwise>
+                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+            </otherwise>
+        </choose>
+        <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
         <choose>
@@ -63,7 +89,37 @@
             </when>
             <otherwise>
                 AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+            </otherwise>
+        </choose>
+        group by d.account
+        order by count(1) desc limit 10;
+    </select>
+
+    <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
+        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        left join zt_product b on a.product = b.id
+        left join zt_project c on a.project = c.id
+        left join zt_user d on a.assignedTo = d.account
+        where
+        1=1
+        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+            and a.status = 'active'
+        </if>
+        <if test="systemId !=null and systemId !=''">
+            and b.id = #{systemId}
+        </if>
+        <choose>
+            <when test="versionIds!=null and versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
             </otherwise>
         </choose>
         group by d.account
@@ -71,7 +127,7 @@
     </select>
 
 
-    <select id="tableForUnDealDetail" resultType="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
+    <select id="tableFor48UnDealDetail" resultType="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
         SELECT
         a.id as id,
         b.name as projectName,
@@ -106,34 +162,106 @@
         a.resolvedBy = f.account
         WHERE
         1=1
-        AND
-        a.status = 'active'
-        AND
-        a.type = 'redev'
-        <choose>
-            <when test="versionIds!=null and versionIds.size() > 0">
-                AND
-                c.id in
-                <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
-                    #{item}
-                </foreach>
-            </when>
-            <otherwise>
-                AND
-                c.name like '%'||(select right(YEAR (CURDATE()),2))
-            </otherwise>
-        </choose>
-        <if test="systemId!=null and systemId!=''">
-            AND  b.id = #{systemId}
-        </if>
-        <if test="unDeal!=null and unDeal!=''">
-            AND TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
-        </if>
-        <if test="account!=null and account!=''">
-            AND d.account = #{account}
-        </if>
-        ORDER BY
-        id
-        DESC
+        <include refid="48Id" />
+        limit #{page.minNum},#{page.pageSize}
+    </select>
+
+    <select id="tableFor48UnDealCount" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <include refid="48Id" />
+    </select>
+
+    <select id="tableForRank10Detail" resultType="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
+        SELECT
+        a.id as id,
+        b.name as projectName,
+        TIMESTAMPDIFF(hour,a.openedDate,now()) as putHours,
+        a.type as type,
+        a.title as title,
+        d.realname as openedBy,
+        e.realname as assignedTo,
+        f.realname as resolvedBy,
+        a.resolution as resolution
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <include refid="10Id" />
+        limit #{page.minNum},#{page.pageSize}
+    </select>
+
+    <select id="tableForRank10Count" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <include refid="10Id" />
     </select>
 </mapper>

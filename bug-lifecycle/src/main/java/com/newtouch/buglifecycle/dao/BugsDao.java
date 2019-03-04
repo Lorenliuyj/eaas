@@ -3,6 +3,8 @@ package com.newtouch.buglifecycle.dao;
 import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
+import com.newtouch.common.entity.base.Page;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,8 +23,6 @@ public interface BugsDao {
     List<BugsInfoVO> tableFor48UnDeal(SystemDTO systemVO);
 
 
-    List<UnsolvedBugDetialVO> tableForUnDealDetail(SystemDTO systemVO);
-
     /**
      * bug数排名前十的
      * @param systemVO
@@ -30,4 +30,12 @@ public interface BugsDao {
      */
     List<BugsInfoVO> tableForRank10(SystemDTO systemVO);
 
+
+    List<UnsolvedBugDetialVO> tableFor48UnDealDetail(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
+
+    int tableFor48UnDealCount(@Param("systemDTO")SystemDTO systemDTO);
+
+    List<UnsolvedBugDetialVO> tableForRank10Detail(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
+
+    int tableForRank10Count(@Param("systemDTO")SystemDTO systemDTO);
 }
