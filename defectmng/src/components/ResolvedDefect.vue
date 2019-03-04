@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <Modal v-model="showDefectDetail" :draggable="true" title="缺陷明细列表" :mask-closable="false" width="1300">
+    <Modal v-model="showDefectDetail" :draggable="true" title="缺陷明细列表" :mask-closable="false" width="detailModalWidth">
       <DefectDetail ref="defectDetailRef" ></DefectDetail>
     </Modal>
   </div>
@@ -139,11 +139,11 @@ export default {
         },
         {
           title: "用户",
-          key: "realName"
+          key: "userName"
         },
         {
           title: "bug数",
-          key: "bugCount"
+          key: "bugsNum"
         }
       ],
       showDefectDetail:false,
@@ -153,6 +153,7 @@ export default {
         pageSize:20,
         totalNum:0,
       },
+      detailModalWidth:0,
     };
   },
   props:{
@@ -173,7 +174,14 @@ export default {
     //加载页面数据
     this.loadPageData();
   },
+  mounted(){
+    this.initModalWidth();
+  },
   methods:{
+    // 初始化细节弹窗的宽度
+    initModalWidth:function(){
+      this.detailModalWidth = document.body.clientWidth * 0.5;
+    },
     loadPageData:function(){
       // 加载所有系统下拉框
       this.loadSystem();
@@ -221,7 +229,7 @@ export default {
     },
     loadTableForRank10:function(){
       var reqObj = {};
-      reqObj.systemId = this.sysFrom48UnDeal;
+      reqObj.systemId = this.sysFromRank10;
       reqObj.versionIds = this.versionIds;
       reqObj.unDeal = false;
       this.$fetch("/home/tableForRank10",reqObj).then(
@@ -234,7 +242,7 @@ export default {
     },
     loadTableForCQOver5:function(){
       var reqObj = {};
-      reqObj.systemId = this.sysFrom48UnDeal;
+      reqObj.systemId = this.sysFromCQOver5;
       reqObj.versionIds = this.versionIds;
       reqObj.unDeal = false;
       reqObj.pageNum = this.pageObjForCQOver5.pageNum;
@@ -242,6 +250,7 @@ export default {
       this.$fetch("/home/tableDataForCQOver5",reqObj).then(
         response =>{
           this.tableDataForCQOver5 = response.result.list;
+          this.pageObjForCQOver5.totalNum = response.result.totalNum;
         },function(){
 
         }

@@ -181,7 +181,6 @@ export default {
         totalNum:0,
       },
       showDefectDetail:false,
-      dataCountForRework:0,
       detailModalWidth:0,
     };
   },
@@ -206,10 +205,11 @@ export default {
   mounted(){
     //加载页面数据
     this.loadPageData();
+    this.initModalWidth();
   },
   methods:{
     initModalWidth:function(){
-      this.detailModalWidth.width = document.body.clientWidth * 0.8;
+      this.detailModalWidth = document.body.clientWidth * 0.8;
     },
     loadPageData:function(){
       // 加载所有系统下拉框
@@ -263,18 +263,18 @@ export default {
     loadTableForRework:function(){
       var reqObj = {};
       reqObj.systemId = this.sysFromRework;
-      debugger;
       reqObj.versionIds = this.versionIds;
       reqObj.unDeal = true;
       reqObj.pageNum = this.pageObjForRework.pageNum;
       reqObj.pageSize = this.pageObjForRework.pageSize;
-      // this.$fetch("/home/tableDataForUnsolveBug",reqObj).then(
-      //   response =>{
-      //     this.tableDataForRework = response.result;
-      //   },function(){
+      this.$fetch("/home/tableDataForUnsolveBug",reqObj).then(
+        response =>{
+          this.tableDataForRework = response.result.list;
+          this.pageObjForRework.totalNum = response.result.totalNum;
+        },function(){
 
-      //   }
-      // )
+        }
+      )
     },
     //分页加载返工缺陷明细
     loadTableForReworkPage:function(value){
@@ -323,13 +323,11 @@ export default {
     loadPieForCommon:function(){
       let _this = this;
       var reqObj = {};
-      debugger;
       reqObj.versionIds = this.versionIds;
       reqObj.unDeal = true;
       this.$fetch("/home/getBugPercent",reqObj)
       .then(
         response =>{
-            debugger;
             var pieForSys = {};
             pieForSys.pieName = "未解决缺陷按系统占比";
             pieForSys.data = response.result.pieForSys;
@@ -354,7 +352,6 @@ export default {
       reqObj.versionIds = this.versionIds;
       reqObj.systemId = this.sysFromPie;
       reqObj.unDeal = true;
-      debugger;
       this.$fetch("/home/getBugPercentHour",reqObj)
       .then(
         response =>{

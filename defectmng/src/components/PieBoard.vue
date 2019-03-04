@@ -62,13 +62,13 @@ export default {
                       length2: 20,
                   }
               },
-            // itemStyle: {
-            //     normal: {
-            //         // color: '#c23531',
-            //         shadowBlur: 20,
-            //         shadowColor: 'rgba(0, 0, 0, 0.5)',
-            //     }
-            // },
+            itemStyle: {
+                normal: {
+                    // color: '#c23531',
+                    shadowBlur: 20,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)',
+                }
+            },
             tooltip:{
               formatter: '数量:{c}<br />百分比:{d}'
             }
@@ -76,7 +76,6 @@ export default {
         ]
       };
       pieOptions.title.text = pieParameter.pieName;
-      debugger;
       if(null == pieParameter.data || pieParameter.data.length == 0){
         pieParameter.data = [{name:"无数据",value:0}]
       }

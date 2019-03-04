@@ -101,10 +101,10 @@ export default {
         debugger;
         let _this = this;
         _this.data = [];
-        this.reqObj = defectDetailData.requestObject;
-        this.reqObj.pageNum = this.pageObjForDetail.pageNum;
-        this.reqObj.pageSize = this.pageObjForDetail.pageSize;
-        this.$fetch(defectDetailData.requestUrl,this.reqObj)
+        this.reqObj = defectDetailData;
+        this.reqObj.requestObject.pageNum = this.pageObjForDetail.pageNum;
+        this.reqObj.requestObject.pageSize = this.pageObjForDetail.pageSize;
+        this.$fetch(this.reqObj.requestUrl,this.reqObj.requestObject)
         .then(
             response =>{
               _this.data = response.result.list;
