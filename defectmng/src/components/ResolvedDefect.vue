@@ -8,7 +8,7 @@
         <Col span="6">
           <PieBoard ref="pieForHours"></PieBoard>
           <div style="width:100%">
-            <Select v-model="sysFromPie" style="width:30%;margin-left:35%" @on-change="loadPieForHours">
+            <Select v-model="sysFromPie" style="width:30%;margin-left:35%" @on-change="loadPieForHours" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -32,7 +32,7 @@
                 超48小时未处理缺陷排名
             </p>
             <p slot="extra">
-                <Select v-model="sysFrom48UnDeal" style="width:150px" @on-change="loadTableFor48UnDeal">
+                <Select v-model="sysFrom48UnDeal" style="width:150px" @on-change="loadTableFor48UnDeal" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -51,7 +51,7 @@
                 缺陷排名前十
             </p>
             <p slot="extra">
-                <Select v-model="sysFromRank10" style="width:150px" @on-change="loadTableForRank10">
+                <Select v-model="sysFromRank10" style="width:150px" @on-change="loadTableForRank10" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -70,7 +70,7 @@
                 缺陷超5个的cq单明细
             </p>
             <p slot="extra">
-                <Select v-model="sysFromCQOver5" style="width:150px" @on-change="loadTableForCQOver5">
+                <Select v-model="sysFromCQOver5" style="width:150px" @on-change="loadTableForCQOver5" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <Modal v-model="showDefectDetail" :draggable="true" title="缺陷明细列表" :mask-closable="false" width="detailModalWidth">
+    <Modal v-model="showDefectDetail" title="缺陷明细列表" :draggable="true" ok-text="关闭" cancel-text="" width="95">
       <DefectDetail ref="defectDetailRef" ></DefectDetail>
     </Modal>
   </div>
@@ -113,37 +113,47 @@ export default {
       columnForCQOver5: [
         {
           title: "序号",
-          type:"index"
+          type:"index",
+          align:"center",
+          width:100
         },
         {
           title: "需求名",
-          key: "title"
+          minWidth:500,
+          key: "title",
+          align:"center"
         },
         {
           title: "版本",
-          key: "version"
+          key: "version",
+          align:"center"
         },
         {
           title: "系统",
-          key: "projectName"
+          key: "projectName",
+          align:"center"
         },
         {
           title: "bug数",
-          key: "bugSum"
+          key: "bugSum",
+          align:"center"
         }
       ],
       columnForUserBug: [
         {
           title: "名次",
           type:"index",
+          align:"center",
         },
         {
           title: "用户",
-          key: "userName"
+          key: "userName",
+          align:"center"
         },
         {
           title: "bug数",
-          key: "bugsNum"
+          key: "bugsNum",
+          align:"center"
         }
       ],
       showDefectDetail:false,
@@ -153,7 +163,7 @@ export default {
         pageSize:20,
         totalNum:0,
       },
-      detailModalWidth:0,
+      unDeal:false,
     };
   },
   props:{
@@ -175,13 +185,8 @@ export default {
     this.loadPageData();
   },
   mounted(){
-    this.initModalWidth();
   },
   methods:{
-    // 初始化细节弹窗的宽度
-    initModalWidth:function(){
-      this.detailModalWidth = document.body.clientWidth * 0.5;
-    },
     loadPageData:function(){
       // 加载所有系统下拉框
       this.loadSystem();
@@ -218,7 +223,7 @@ export default {
       var reqObj = {};
       reqObj.systemId = this.sysFrom48UnDeal;
       reqObj.versionIds = this.versionIds;
-      reqObj.unDeal = false;
+      reqObj.unDeal = this.unDeal;
       this.$fetch("/home/tableFor48UnDeal",reqObj).then(
         response =>{
           this.tableDataFor48unDeal = response.result;
@@ -231,7 +236,7 @@ export default {
       var reqObj = {};
       reqObj.systemId = this.sysFromRank10;
       reqObj.versionIds = this.versionIds;
-      reqObj.unDeal = false;
+      reqObj.unDeal = this.unDeal;
       this.$fetch("/home/tableForRank10",reqObj).then(
         response =>{
           this.tableDataForRank10 = response.result;
@@ -244,7 +249,7 @@ export default {
       var reqObj = {};
       reqObj.systemId = this.sysFromCQOver5;
       reqObj.versionIds = this.versionIds;
-      reqObj.unDeal = false;
+      reqObj.unDeal = this.unDeal;
       reqObj.pageNum = this.pageObjForCQOver5.pageNum;
       reqObj.pageSize = this.pageObjForCQOver5.pageSize;
       this.$fetch("/home/tableDataForCQOver5",reqObj).then(
@@ -270,7 +275,7 @@ export default {
       reqParam.account =  data.account;
       reqParam.systemId =  this.sysFrom48UnDeal;
       reqParam.versionIds = this.versionIds;
-      reqParam.undeal = false;
+      reqParam.unDeal = this.unDeal;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
@@ -282,7 +287,7 @@ export default {
       reqParam.account =  data.account;
       reqParam.systemId =  this.sysFromRank10;
       reqParam.versionIds = this.versionIds;
-      reqParam.undeal = false;
+      reqParam.unDeal = this.unDeal;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
@@ -304,7 +309,7 @@ export default {
       let _this = this;
       var reqObj = {};
       reqObj.versionIds = this.versionIds;
-      reqObj.unDeal = false;
+      reqObj.unDeal = this.unDeal;
       this.$fetch("/home/getBugPercent",reqObj)
       .then(
         response =>{
@@ -319,7 +324,7 @@ export default {
             pieForOver48.data = response.result.pieForOver48;
             _this.$refs.pieForSystem.loadPie(pieForSys,"","","",_this.versionIds);
             _this.$refs.pieForRework.loadPie(pieForRework,"type","redev","",_this.versionIds);
-            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48","",_this.versionIds);
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"minTime","48","",_this.versionIds);
             },
             function(response) {
               // TODO
@@ -331,7 +336,7 @@ export default {
       var reqObj = {};
       reqObj.versionIds = this.versionIds;
       reqObj.systemId = this.sysFromPie;
-      reqObj.unDeal = false;
+      reqObj.unDeal = this.unDeal;
       this.$fetch("/home/getBugPercentHour",reqObj)
       .then(
         response =>{

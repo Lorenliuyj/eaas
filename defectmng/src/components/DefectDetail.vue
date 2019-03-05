@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;height:100%">
+  <div style="">
     <Table :loading="loading" :columns="columns" height="500" :data="data" stripe ref="table" size="small" :no-data-text="nodatatext"></Table>
     <Page @on-change="loadPage" @on-page-size-change="loadPageSize" :total="pageObjForDetail.totalNum" :current="pageObjForDetail.pageNum" :page-size="pageObjForDetail.pageSize" show-sizer show-total/>
   </div>
@@ -21,49 +21,58 @@ export default {
         {
           title: "序号",
           type:"index",
-          width:70
+          width:70,
         },
         {
           title: "缺陷ID",
           key: "id",
-          maxWidth:90
+          maxWidth:90,
+          align:"center"
         },
         {
           title: "提出时间(H)",
           key: "putHours",
+          align:"center"
         },
         {
           title: "系统",
           key: "projectName",
           minwidth:140,
-          tooltip:true
+          tooltip:true,
+          align:"center"
         },
         {
           title: "BUG类型",
           key: "type",
-          tooltip:true
+          tooltip:true,
+          align:"center"
         },
         {
           title: "BUG标题",
           key: "title",
-          tooltip:true
+          tooltip:true,
+          align:"center"
         },
         {
           title: "创建人",
-          key: "openedBy"
+          key: "openedBy",
+          align:"center"
         },
         {
           title: "指派人",
-          key: "assignedTo"
+          key: "assignedTo",
+          align:"center"
         },
         {
           title: "解决人",
-          key: "resolvedBy"
+          key: "resolvedBy",
+          align:"center"
         },
         {
           title: "方案",
           key: "resolution",
-          tooltip:true
+          tooltip:true,
+          align:"center"
         }
       ],
       data: [],

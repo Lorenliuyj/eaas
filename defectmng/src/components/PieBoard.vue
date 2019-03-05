@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div v-bind:style="pieStyle">
-    <Modal v-model="showDefectDetail" title="缺陷明细列表" :mask-closable="false" width="1300">
+    <Modal v-model="showDefectDetail" title="缺陷明细列表" :draggable="true" ok-text="关闭" cancel-text="" width="95">
       <DefectDetail ref="defectDetail"></DefectDetail>
     </Modal>
   </div>
@@ -24,8 +24,8 @@ export default {
     DefectDetail
   },
   methods:{
-      loadPie:function(pieParameter,proName,proValue,status,versionIds){
-        var pieOptions = {
+    loadPie:function(pieParameter,proName,proValue,status,versionIds){
+      var pieOptions = {
         title: {
           text: "",
           left: 'left',

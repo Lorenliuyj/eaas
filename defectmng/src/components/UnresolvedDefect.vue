@@ -8,7 +8,7 @@
         <Col span="6">
           <PieBoard ref="pieForHours"></PieBoard>
           <div style="width:100%">
-            <Select v-model="sysFromPie" style="width:30%;margin-left:35%" @on-change="loadPieForHours">
+            <Select v-model="sysFromPie" style="width:30%;margin-left:35%" @on-change="loadPieForHours" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -32,7 +32,7 @@
                超48小时未解决缺陷排名
             </p>
             <p slot="extra">
-                <Select v-model="sysFrom48UnDeal" style="width:150px" @on-change="loadTableFor48UnDeal">
+                <Select v-model="sysFrom48UnDeal" style="width:150px" @on-change="loadTableFor48UnDeal" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -51,7 +51,7 @@
                 未解决缺陷排名前十
             </p>
             <p slot="extra">
-                <Select v-model="sysFromRank10" style="width:150px" @on-change="loadTableForRank10">
+                <Select v-model="sysFromRank10" style="width:150px" @on-change="loadTableForRank10" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -70,7 +70,7 @@
                 未解决返工缺陷明细
             </p>
             <p slot="extra">
-                <Select v-model="sysFromRework" style="width:150px" @on-change="loadTableForRework">
+                <Select v-model="sysFromRework" style="width:150px" @on-change="loadTableForRework" :clearable="true">
                   <Option
                     v-for="item in systemList"
                     :value="item.value"
@@ -85,7 +85,7 @@
         </div>
       </div>
     </div>
-    <Modal v-model="showDefectDetail" :draggable="true" title="缺陷明细列表" :mask-closable="false" width="detailModalWidth">
+    <Modal v-model="showDefectDetail" title="缺陷明细列表"  :draggable="true" ok-text="关闭" cancel-text="" width="95">
       <DefectDetail ref="defectDetailRef" ></DefectDetail>
     </Modal>
   </div>
@@ -120,58 +120,68 @@ export default {
         {
           title: "缺陷ID",
           key: "id",
-          maxWidth:90
+          align:"center"
         },
         {
           title: "提出时间(H)",
           key: "putHours",
+          align:"center"
         },
         {
           title: "系统",
           key: "projectName",
-          minwidth:140,
-          tooltip:true
+          tooltip:true,
+          align:"center"
         },
         {
           title: "BUG类型",
           key: "type",
-          tooltip:true
+          align:"center"
         },
         {
           title: "BUG标题",
           key: "title",
-          tooltip:true
+          minWidth:300,
+          tooltip:true,
+          align:"center"
         },
         {
           title: "创建人",
-          key: "openedBy"
+          key: "openedBy",
+          align:"center"
         },
         {
           title: "指派人",
-          key: "assignedTo"
+          key: "assignedTo",
+          align:"center"
         },
         {
           title: "解决人",
-          key: "resolvedBy"
+          key: "resolvedBy",
+          align:"center"
         },
         {
           title: "方案",
           key: "resolution",
-          tooltip:true
+          tooltip:true,
+          align:"center"
         }
       ],
       columnForUserBug: [
         {
           title: "名次",
           type:"index",
+          align:"center"
         },
         {
           title: "用户",
-          key: "userName"
+          key: "userName",
+          align:"center"
         },
         {
           title: "bug数",
-          key: "bugsNum"
+          key: "bugsNum",
+          align:"center"
         }
       ],
       //返工缺陷明细分页对象
@@ -181,7 +191,6 @@ export default {
         totalNum:0,
       },
       showDefectDetail:false,
-      detailModalWidth:0,
     };
   },
   props:{
@@ -199,18 +208,13 @@ export default {
     DefectDetail
   },
   created(){
-    // 详情穿透弹窗的宽度根据当前屏幕来定
 
   },
   mounted(){
     //加载页面数据
     this.loadPageData();
-    this.initModalWidth();
   },
   methods:{
-    initModalWidth:function(){
-      this.detailModalWidth = document.body.clientWidth * 0.8;
-    },
     loadPageData:function(){
       // 加载所有系统下拉框
       this.loadSystem();
@@ -293,7 +297,7 @@ export default {
       reqParam.account =  data.account;
       reqParam.systemId =  this.sysFrom48UnDeal;
       reqParam.versionIds = this.versionIds;
-      reqParam.undeal = true;
+      reqParam.unDeal = true;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
@@ -305,7 +309,7 @@ export default {
       reqParam.account =  data.account;
       reqParam.systemId =  this.sysFromRank10;
       reqParam.versionIds = this.versionIds;
-      reqParam.undeal = true;
+      reqParam.unDeal = true;
       defectDetailData.requestObject = reqParam;
       this.showDefectDetailModal(defectDetailData);
     },
@@ -339,7 +343,7 @@ export default {
             pieForOver48.data = response.result.pieForOver48;
             _this.$refs.pieForSystem.loadPie(pieForSys,"","","active",_this.versionIds);
             _this.$refs.pieForRework.loadPie(pieForRework,"type","redev","active",_this.versionIds);
-            _this.$refs.pieForOver48.loadPie(pieForOver48,"mintime","48","active",_this.versionIds);
+            _this.$refs.pieForOver48.loadPie(pieForOver48,"minTime","48","active",_this.versionIds);
             },
             function(response) {
               // TODO

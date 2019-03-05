@@ -170,22 +170,18 @@ export default {
         //更改版本
         this.versionIds = "";
         for (var i = 0; i < this.versionId.length; i++) {
-          if(this.versionId.length>1){
           if (i == this.versionId.length - 1) {
             this.versionIds += this.versionId[i];
           } else {
             this.versionIds += this.versionId[i] + ",";
           }
-          }
         }
-        debugger;
         let expireDays = 1000 * 60 * 60 ;
         this.$setCookie('versionIds',this.versionIds,expireDays); //设置Cookie
         this.updateDashBorad("/home/dashBoardData", {
           versionIds: this.versionIds,
           systemId: this.systemId
         });
-        this.jumpToPage();
         console.log("versionIds==" + this.versionIds);
       } else if (type === 2) {
         //更改系统
@@ -363,12 +359,13 @@ export default {
   padding-top: 15px;
 }
 .bottom-left {
-  width: 40%;
-  margin: 10px 10px 10px 1px;
+  width: 49.4%;
+  /* margin: 10px 0px 10px 0px; */
+  margin-right: 0.6%
 }
 .bottom-right {
-  width: 59%;
-  margin-top: 10px;
+  width: 49.4%;
+  /* margin-top: 10px; */
 }
 .bottom-bottom {
   padding-top: 10px;

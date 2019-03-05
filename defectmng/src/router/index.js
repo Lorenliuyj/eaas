@@ -24,9 +24,9 @@ Vue.use(iView);
 Vue.use(VueRouter);
 Vue.prototype.$axios= axios
 // axios.defaults.baseURL='http://182.119.90.145:8080'//生产
-axios.defaults.baseURL='http://182.207.113.235:8080' //简松
+// axios.defaults.baseURL='http://182.207.113.235:8080' //简松
 // axios.defaults.baseURL='http://182.207.113.161:8080' //彭信
-// axios.defaults.baseURL='http://182.207.113.95:8080' //广宇
+axios.defaults.baseURL='http://182.207.113.95:8080' //广宇
 // axios.defaults.baseURL='http://182.207.113.169:8088' //本地
 // 创建路由实例并配置路由映射  
 // path:'*',redirect:'/unresolved-defect'  重定向到path是/unresolved-defect的映射
