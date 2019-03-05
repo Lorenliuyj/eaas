@@ -38,4 +38,16 @@ public interface BugsDao {
     List<UnsolvedBugDetialVO> tableForRank10Detail(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
 
     int tableForRank10Count(@Param("systemDTO")SystemDTO systemDTO);
+
+    List findAllUnsolvedBug(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
+
+    int findAllUnsolvedBugTotal(@Param("systemDTO")SystemDTO systemVO);
+
+    List findBugDetail(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
+
+    int findBugDetailTotal(@Param("systemDTO")SystemDTO systemVO);
+
+    List findThan5Bug(@Param("systemDTO")SystemDTO systemDTO,  @Param("page")Page page);
+
+    int findThan5BugTotal(@Param("systemDTO")SystemDTO systemDTO);
 }

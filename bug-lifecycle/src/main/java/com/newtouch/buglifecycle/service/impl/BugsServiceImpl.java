@@ -3,6 +3,7 @@ package com.newtouch.buglifecycle.service.impl;
 import com.newtouch.buglifecycle.dao.BugsDao;
 import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
 import com.newtouch.buglifecycle.entity.base.SystemDTO;
+import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
 import com.newtouch.common.entity.base.Page;
@@ -38,6 +39,30 @@ public class BugsServiceImpl implements BugsService {
         page.init();
         page.setList(bugsDao.tableForRank10Detail(systemVO,page));
         page.setTotalNum(bugsDao.tableForRank10Count(systemVO));
+        return page;
+    }
+
+    @Override
+    public Page<UnsolvedBugDetialVO> findAllUnsolvedBug(SystemDTO systemVO, Page page) {
+        page.init();
+        page.setList(bugsDao.findAllUnsolvedBug(systemVO,page));
+        page.setTotalNum(bugsDao.findAllUnsolvedBugTotal(systemVO));
+        return page;
+    }
+
+    @Override
+    public Page<UnsolvedBugDetialVO> findBugDetail(SystemDTO systemVO,Page page) {
+        page.init();
+        page.setList(bugsDao.findBugDetail(systemVO,page));
+        page.setTotalNum(bugsDao.findBugDetailTotal(systemVO));
+        return page;
+    }
+
+    @Override
+    public Page<DefectThanFiveVO> findThan5Bug(SystemDTO systemDTO, Page page) {
+        page.init();
+        page.setList(bugsDao.findThan5Bug(systemDTO,page));
+        page.setTotalNum(bugsDao.findThan5BugTotal(systemDTO));
         return page;
     }
 }
