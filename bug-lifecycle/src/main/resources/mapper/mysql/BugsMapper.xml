@@ -27,12 +27,17 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <sql id="10Id">
@@ -57,12 +62,17 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
@@ -96,7 +106,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
@@ -131,7 +141,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
