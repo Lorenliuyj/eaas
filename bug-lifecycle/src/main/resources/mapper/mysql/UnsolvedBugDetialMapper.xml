@@ -60,7 +60,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
@@ -113,7 +113,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
@@ -174,7 +174,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
@@ -222,7 +222,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',concat('%',(select right(YEAR (CURDATE()),2))),'%')
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
             </otherwise>
         </choose>
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
