@@ -170,12 +170,10 @@ export default {
         //更改版本
         this.versionIds = "";
         for (var i = 0; i < this.versionId.length; i++) {
-          if(this.versionId.length>1){
           if (i == this.versionId.length - 1) {
             this.versionIds += this.versionId[i];
           } else {
             this.versionIds += this.versionId[i] + ",";
-          }
           }
         }
         debugger;
@@ -230,8 +228,12 @@ export default {
       this.versionIds = temp;
       this.versionId = str.split(/\%2C/g);
     }
+
     //初始化仪表盘
-    this.updateDashBorad("/home/dashBoardData", {});
+    this.updateDashBorad("/home/dashBoardData",{
+          versionIds: this.versionIds,
+          systemId: this.systemId
+        });
   }
 };
 </script>
