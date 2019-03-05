@@ -180,7 +180,6 @@
         <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
             AND  b.id = #{systemDTO.systemId}
         </if>
-        limit #{page.minNum},#{page.pageSize}
     </select>
 
     <select id="findBugDetailTotal" resultType="java.lang.Integer">
