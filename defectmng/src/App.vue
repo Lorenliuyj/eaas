@@ -176,9 +176,8 @@ export default {
             this.versionIds += this.versionId[i] + ",";
           }
         }
-        debugger;
-        let expireDays = 1000 * 60 * 60 ;
-        this.$setCookie('versionIds',this.versionIds,expireDays); //设置Cookie
+        let expireDays = 1000 * 60 * 60;
+        this.$setCookie("versionIds", this.versionIds, expireDays); //设置Cookie
         this.updateDashBorad("/home/dashBoardData", {
           versionIds: this.versionIds,
           systemId: this.systemId
@@ -222,18 +221,18 @@ export default {
       _this.systemList = response.result.systemList;
     });
     //获取cookie
-    if(this.$getCookie('versionIds')){
-      let str = this.$getCookie('versionIds');
-      let temp = str.replace(/\%2C/g,",");
+    if (this.$getCookie("versionIds")) {
+      let str = this.$getCookie("versionIds");
+      let temp = str.replace(/\%2C/g, ",");
       this.versionIds = temp;
       this.versionId = str.split(/\%2C/g);
     }
 
     //初始化仪表盘
-    this.updateDashBorad("/home/dashBoardData",{
-          versionIds: this.versionIds,
-          systemId: this.systemId
-        });
+    this.updateDashBorad("/home/dashBoardData", {
+      versionIds: this.versionIds,
+      systemId: this.systemId
+    });
   }
 };
 </script>
