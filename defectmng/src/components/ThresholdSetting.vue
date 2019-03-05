@@ -1,9 +1,8 @@
 <!-- 阀值设置 -->
 <template>
   <div class="modal">
-    <Form>
       <span class="item-title">返工缺陷数阀值：</span>
-      <div>橙色预警:
+      <div class="item-body">橙色预警:
         <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoardRedev.action"/>红色预警:
         <Input
           type="text"
@@ -15,7 +14,7 @@
       </div>
       <br>
       <span class="item-title">超48小时未解决缺陷数阀值：</span>
-      <div>橙色预警:
+      <div class="item-body">橙色预警:
         <Input
           type="text"
           placeholder="正整数"
@@ -32,7 +31,7 @@
       </div>
       <br>
       <span class="item-title">24小时内未解决缺陷数阀值：</span>
-      <div>橙色预警:
+      <div class="item-body">橙色预警:
         <Input
           type="text"
           placeholder="正整数"
@@ -47,7 +46,6 @@
         />最大值:
         <Input type="text" placeholder="正整数" class="setting-input" v-model="dashBoard24Hour.max"/>
       </div>
-    </Form>
   </div>
 </template>
 <script>
@@ -92,13 +90,13 @@ export default {
   font-size: 15px;
   font-weight: bolder;
 }
-
 .modal {
-  width: 800px;
+  width: 540px;
   height: 250px;
 }
 
 .setting-input {
   width: 90px;
+  margin-right: 20px;
 }
 </style>

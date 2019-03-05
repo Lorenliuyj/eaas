@@ -54,7 +54,7 @@
                 v-model="showThreshold"
                 title="阀值设置"
                 :mask-closable="false"
-                width="580"
+                :width="560"
                 @on-ok="settingThenShow"
               >
                 <ThresholdSetting ref="thresholdSetting"></ThresholdSetting>
