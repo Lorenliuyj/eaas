@@ -10,7 +10,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
@@ -26,18 +27,28 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <sql id="10Id">
-        <if test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
@@ -51,12 +62,17 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
@@ -73,7 +89,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemId !=null and systemId !=''">
@@ -89,7 +106,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
@@ -103,9 +120,14 @@
         left join zt_user d on a.assignedTo = d.account
         where
         1=1
-        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
@@ -119,7 +141,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
