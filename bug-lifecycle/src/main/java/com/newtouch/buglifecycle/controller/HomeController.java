@@ -5,9 +5,7 @@ import com.newtouch.buglifecycle.entity.home.BugsInfoVO;
 import com.newtouch.buglifecycle.entity.home.DefectThanFiveVO;
 import com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO;
 import com.newtouch.buglifecycle.service.BugsService;
-import com.newtouch.buglifecycle.service.DefectThanFiveService;
 import com.newtouch.buglifecycle.service.HomeService;
-import com.newtouch.buglifecycle.service.UnsolvedBugDetialService;
 import com.newtouch.common.entity.base.Page;
 import com.newtouch.common.entity.base.ResponseVO;
 import com.newtouch.common.util.ResponseUtil;
@@ -27,12 +25,6 @@ public class HomeController {
 
     @Resource
     BugsService bugsService;
-
-    @Resource
-    UnsolvedBugDetialService unsolvedBugDetialService;
-
-    @Resource
-    DefectThanFiveService defectThanFiveService;
 
     @Resource
     HomeService homeService;
@@ -167,7 +159,7 @@ public class HomeController {
      */
     @RequestMapping("/tableDataForCQOver5")
     public ResponseVO tableDataForCQOver5(SystemDTO systemDTO,Page page) {
-            Page<DefectThanFiveVO> result = defectThanFiveService.findThan5Bug(systemDTO,page);
+            Page<DefectThanFiveVO> result = bugsService.findThan5Bug(systemDTO,page);
             return ResponseUtil.successResponse(result);
     }
 
@@ -178,7 +170,7 @@ public class HomeController {
      */
     @RequestMapping("/tableDataForUnsolveBug")
     public ResponseVO tableDataForUnsolveBug(SystemDTO systemDTO,Page page) {
-            Page<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findAll(systemDTO,page);
+            Page<UnsolvedBugDetialVO> result = bugsService.findAllUnsolvedBug(systemDTO,page);
             return ResponseUtil.successResponse(result);
     }
 
@@ -192,7 +184,7 @@ public class HomeController {
     public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id,Page page) {
         SystemDTO systemVO = new SystemDTO();
         systemVO.setStoryId(id);
-        Page<UnsolvedBugDetialVO> result = unsolvedBugDetialService.findBugDetail(systemVO,page);
+        Page<UnsolvedBugDetialVO> result = bugsService.findBugDetail(systemVO,page);
         return ResponseUtil.successResponse(result);
     }
 }

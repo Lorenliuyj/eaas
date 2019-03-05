@@ -276,9 +276,7 @@ export default {
           this.tableDataForRework = response.result.list;
           this.pageObjForRework.totalNum = response.result.totalNum;
         },function(){
-
-        }
-      )
+        })
     },
     //分页加载返工缺陷明细
     loadTableForReworkPage:function(value){

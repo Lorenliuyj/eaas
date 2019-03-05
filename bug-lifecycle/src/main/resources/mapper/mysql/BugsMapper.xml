@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.newtouch.buglifecycle.dao.BugsDao">
 
+    <resultMap id="BaseResultMap1"
+               type="com.newtouch.buglifecycle.entity.home.DefectThanFiveVO">
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="PROJECTNAME" property="projectName" jdbcType="VARCHAR" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="VERSION" property="version" jdbcType="VARCHAR" />
+        <result column="BUGSUM" property="bugSum" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="BaseResultMap2"
+               type="com.newtouch.buglifecycle.entity.home.UnsolvedBugDetialVO">
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="PROJECTNAME" property="projectName" jdbcType="VARCHAR" />
+        <result column="PUTHOURS" property="putHours" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="TITLE" property="title" jdbcType="VARCHAR" />
+        <result column="OPENEDBY" property="openedBy" jdbcType="VARCHAR" />
+        <result column="ASSIGNEDTO" property="assignedTo" jdbcType="VARCHAR" />
+        <result column="RESOLVEDBY" property="resolvedBy" jdbcType="VARCHAR" />
+        <result column="RESOLUTION" property="resolution" jdbcType="VARCHAR" />
+    </resultMap>
+
     <sql id="48Id">
         <choose>
             <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
@@ -10,7 +32,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
@@ -26,18 +49,28 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <sql id="10Id">
-        <if test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
@@ -51,12 +84,17 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <if test="systemDTO.account!=null and systemDTO.account!=''">
-            AND e.account = #{systemDTO.account}
-        </if>
+        <choose>
+            <when test="systemDTO.account!=null">
+                AND a.assignedTo = #{systemDTO.account}
+            </when>
+            <otherwise>
+                AND a.assignedTo = ''
+            </otherwise>
+        </choose>
     </sql>
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
@@ -73,7 +111,8 @@
                 and a.type='codeerror'
             </when>
             <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,a.resolvedDate) &gt; 48
+                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
+                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemId !=null and systemId !=''">
@@ -89,7 +128,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
@@ -103,9 +142,14 @@
         left join zt_user d on a.assignedTo = d.account
         where
         1=1
-        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-            and a.status = 'active'
-        </if>
+        <choose>
+            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+                and a.status = 'active'
+            </when>
+            <otherwise>
+                and a.status &lt;&gt; 'closed'
+            </otherwise>
+        </choose>
         <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
@@ -119,7 +163,7 @@
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)))
+                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
@@ -264,4 +308,324 @@
         1=1
         <include refid="10Id" />
     </select>
+
+    <select id="findThan5Bug" resultMap="BaseResultMap1">
+        SELECT
+        c.name as  version,
+        b.name as projectName,
+        e.title as title,
+        e.id as id,
+        count(*) as bugSum
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.resolvedBy = d.account
+        LEFT JOIN
+        zt_story e
+        ON
+        a.story = e.id
+        WHERE
+        1=1
+        AND
+        e.id is not null
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+        GROUP BY
+        c.id,b.id,e.title,e.id
+        HAVING(bugSum &gt;5)
+        ORDER BY
+        bugSum
+        DESC
+        limit #{page.minNum},#{page.pageSize}
+    </select>
+
+    <select id="findThan5BugTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        (SELECT
+        COUNT(*) as bugSum
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.resolvedBy = d.account
+        LEFT JOIN
+        zt_story e
+        ON
+        a.story = e.id
+        WHERE
+        1=1
+        AND
+        e.id is not null
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+        GROUP BY
+        c.id,b.id,e.title,e.id
+        HAVING(bugSum &gt;5)
+        ) B
+    </select>
+
+    <select id="findAllUnsolvedBug" resultMap="BaseResultMap2">
+        SELECT
+        a.id as id,
+        b.name as projectName,
+        TIMESTAMPDIFF(hour,a.openedDate,now()) as putHours,
+        a.type as type,
+        a.title as title,
+        d.realname as openedBy,
+        e.realname as assignedTo,
+        f.realname as resolvedBy,
+        a.resolution as resolution
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+        AND
+        a.status = 'active'
+        AND
+        a.type = 'redev'
+        ORDER BY
+        id
+        DESC
+        limit #{page.minNum},#{page.pageSize}
+    </select>
+
+    <select id="findAllUnsolvedBugTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+        AND
+        a.status = 'active'
+        AND
+        a.type = 'redev'
+    </select>
+
+
+    <select id="findBugDetail" resultMap="BaseResultMap2">
+        SELECT
+        a.id as id,
+        b.name as projectName,
+        TIMESTAMPDIFF(hour,a.openedDate,now()) as putHours,
+        a.type as type,
+        a.title as title,
+        d.realname as openedBy,
+        e.realname as assignedTo,
+        f.realname as resolvedBy,
+        a.resolution as resolution
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <if test="systemDTO.storyId!=null and systemDTO.storyId!=''">
+            AND a.story = #{systemDTO.storyId}
+        </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+    </select>
+
+    <select id="findBugDetailTotal" resultType="java.lang.Integer">
+        SELECT
+        COUNT(*)
+        FROM
+        zt_bug a
+        LEFT JOIN
+        zt_product b
+        ON
+        a.product = b.id
+        LEFT JOIN
+        zt_project c
+        ON
+        a.project = c.id
+        LEFT JOIN
+        zt_user d
+        ON
+        a.openedBy = d.account
+        LEFT JOIN
+        zt_user e
+        ON
+        a.assignedTo = e.account
+        LEFT JOIN
+        zt_user f
+        ON
+        a.resolvedBy = f.account
+        WHERE
+        1=1
+        <if test="systemDTO.storyId!=null and systemDTO.storyId!=''">
+            AND a.story = #{systemDTO.storyId}
+        </if>
+        <choose>
+            <when test="systemDTO.versionIds!=null and systemDTO.versionIds.size() > 0">
+                AND
+                c.id in
+                <foreach collection="systemDTO.versionIds" item="item" open="(" close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <otherwise>
+                AND
+                c.name like concat('%',right(YEAR (CURDATE()),2),'%')
+            </otherwise>
+        </choose>
+        <if test="systemDTO.systemId!=null and systemDTO.systemId!=''">
+            AND  b.id = #{systemDTO.systemId}
+        </if>
+    </select>
+
 </mapper>

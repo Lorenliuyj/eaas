@@ -220,14 +220,18 @@ export default {
       _this.systemList = response.result.systemList;
     });
     //获取cookie
-    if(this.$getCookie('versionIds')){
-      let str = this.$getCookie('versionIds');
-      let temp = str.replace(/\%2C/g,",");
+    if (this.$getCookie("versionIds")) {
+      let str = this.$getCookie("versionIds");
+      let temp = str.replace(/\%2C/g, ",");
       this.versionIds = temp;
       this.versionId = str.split(/\%2C/g);
     }
+
     //初始化仪表盘
-    this.updateDashBorad("/home/dashBoardData", {});
+    this.updateDashBorad("/home/dashBoardData", {
+      versionIds: this.versionIds,
+      systemId: this.systemId
+    });
   }
 };
 </script>
