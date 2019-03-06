@@ -9,6 +9,8 @@
         <result column="TITLE" property="title" jdbcType="VARCHAR" />
         <result column="VERSION" property="version" jdbcType="VARCHAR" />
         <result column="BUGSUM" property="bugSum" jdbcType="VARCHAR" />
+        <result column="VERSIONID" property="versionId" jdbcType="VARCHAR" />
+        <result column="SYSTEMID" property="systemId" jdbcType="VARCHAR" />
     </resultMap>
 
     <resultMap id="BaseResultMap2"
@@ -305,6 +307,8 @@
 
     <select id="findThan5Bug" resultMap="BaseResultMap1">
         SELECT
+        c.id as versionId,
+        b.id as systemId,
         c.name as  version,
         b.name as projectName,
         e.title as title,

@@ -31,6 +31,16 @@ public class DefectThanFiveVO implements Serializable {
     private String version;
 
     /**
+     * 版本id
+     */
+    private String versionId;
+
+    /**
+     * 系统id
+     */
+    private String systemId;
+
+    /**
      * bug数
      */
     private String bugSum;
@@ -73,5 +83,21 @@ public class DefectThanFiveVO implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getVersionId() {
+        return versionId;
+    }
+
+    public void setVersionId(String versionId) {
+        this.versionId = versionId;
+    }
+
+    public String getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(String systemId) {
+        this.systemId = systemId;
     }
 }

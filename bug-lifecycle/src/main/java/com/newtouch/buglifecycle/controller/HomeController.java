@@ -181,10 +181,8 @@ public class HomeController {
      * @return
      */
     @RequestMapping("/tableDataForCQOver5Detail")
-    public ResponseVO tableDataForCQOver5Detail(@RequestParam(required=false)String id,Page page) {
-        SystemDTO systemVO = new SystemDTO();
-        systemVO.setStoryId(id);
-        Page<UnsolvedBugDetialVO> result = bugsService.findBugDetail(systemVO,page);
+    public ResponseVO tableDataForCQOver5Detail(SystemDTO systemDTO,Page page) {
+        Page<UnsolvedBugDetialVO> result = bugsService.findBugDetail(systemDTO,page);
         return ResponseUtil.successResponse(result);
     }
 }
