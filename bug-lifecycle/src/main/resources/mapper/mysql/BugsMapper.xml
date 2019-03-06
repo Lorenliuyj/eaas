@@ -29,11 +29,9 @@
             <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
                 and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
                 and a.status = 'active'
-                and a.type='codeerror'
             </when>
             <otherwise>
                 and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
-                and a.status &lt;&gt; 'closed'
             </otherwise>
         </choose>
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
@@ -66,11 +64,27 @@
         <choose>
             <when test="systemDTO.unDeal!=null and systemDTO.unDeal!='' and 'true'.toString()==systemDTO.unDeal.toString()">
                 and a.status = 'active'
+                <choose>
+                    <when test="systemDTO.account!=null">
+                        AND a.assignedTo = #{systemDTO.account}
+                    </when>
+                    <otherwise>
+                        AND a.assignedTo = ''
+                    </otherwise>
+                </choose>
             </when>
             <otherwise>
-                and a.status &lt;&gt; 'closed'
+                <choose>
+                    <when test="systemDTO.account!=null">
+                        AND  ((a.assignedTo= #{systemDTO.account} and a.status='active') or (a.resolvedBy= #{systemDTO.account} and a.status!='active'))
+                    </when>
+                    <otherwise>
+                        AND (a.assignedTo = '' and a.status='active')
+                    </otherwise>
+                </choose>
             </otherwise>
         </choose>
+
         <if test="systemDTO.systemId !=null and systemDTO.systemId !=''">
             and b.id = #{systemDTO.systemId}
         </if>
@@ -87,34 +101,17 @@
                 c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
-        <choose>
-            <when test="systemDTO.account!=null">
-                AND a.assignedTo = #{systemDTO.account}
-            </when>
-            <otherwise>
-                AND a.assignedTo = ''
-            </otherwise>
-        </choose>
+
     </sql>
 
     <select id="tableFor48UnDeal" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-      select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
         left join zt_user d on a.assignedTo = d.account
         where
-         1=1
-        <choose>
-            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-                and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
-                and a.status = 'active'
-                and a.type='codeerror'
-            </when>
-            <otherwise>
-                and TIMESTAMPDIFF(hour,a.openedDate,case when a.resolvedDate is null then now() else a.resolvedDate end ) &gt; 48
-                and a.status &lt;&gt; 'closed'
-            </otherwise>
-        </choose>
+        and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+        and a.status = 'active'
         <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
         </if>
@@ -136,34 +133,31 @@
     </select>
 
     <select id="tableForRank10" resultType="com.newtouch.buglifecycle.entity.home.BugsInfoVO" >
-        select d.realname as userName,count(1)as bugsNum,d.account from zt_bug a
+        select d.realname as userName,count(1)as bugsNum,d.account from (
+        select case when a.status='active' then a.assignedTo else a.resolvedBy end account ,a.status,b.id as systemId,c.id as versionId,c.name from zt_bug a
         left join zt_product b on a.product = b.id
         left join zt_project c on a.project = c.id
-        left join zt_user d on a.assignedTo = d.account
+        ) t
+        left join zt_user d on t.account = d.account
         where
         1=1
-        <choose>
-            <when test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
-                and a.status = 'active'
-            </when>
-            <otherwise>
-                and a.status &lt;&gt; 'closed'
-            </otherwise>
-        </choose>
+        <if test="unDeal!=null and unDeal!='' and 'true'.toString()==unDeal.toString()">
+            and t.status = 'active'
+        </if>
         <if test="systemId !=null and systemId !=''">
-            and b.id = #{systemId}
+            and t.systemId = #{systemId}
         </if>
         <choose>
             <when test="versionIds!=null and versionIds.size() > 0">
                 AND
-                c.id in
+                t.versionId in
                 <foreach collection="versionIds" item="item" open="(" close=")" separator=",">
                     #{item}
                 </foreach>
             </when>
             <otherwise>
                 AND
-                c.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
+                t.name like concat('%',(select right(YEAR (CURDATE()),2)),'%')
             </otherwise>
         </choose>
         group by d.account
