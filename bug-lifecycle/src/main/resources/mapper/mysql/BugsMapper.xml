@@ -110,7 +110,7 @@
         left join zt_project c on a.project = c.id
         left join zt_user d on a.assignedTo = d.account
         where
-        and TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
+        TIMESTAMPDIFF(hour,a.openedDate,now()) &gt; 48
         and a.status = 'active'
         <if test="systemId !=null and systemId !=''">
             and b.id = #{systemId}
