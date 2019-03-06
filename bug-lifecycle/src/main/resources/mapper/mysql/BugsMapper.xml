@@ -353,7 +353,7 @@
             AND  b.id = #{systemDTO.systemId}
         </if>
         GROUP BY
-        c.id,b.id,e.title,e.id
+        c.name,b.name,e.title,e.id
         HAVING(bugSum &gt;5)
         ORDER BY
         bugSum
